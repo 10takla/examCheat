@@ -1,48 +1,30 @@
-import {createRC} from "./reactComponent";
-import {PathLike,} from "fs";
-import {Name} from "./types";
-
-enum TemplateType {
-    RC = 'rc'
-}
-
-const args = {
-    typeTemplate: {
-        value: process.argv[2] as (TemplateType | undefined),
-        direction: `один из типов шаблонов: ${Object.values(TemplateType).join(', ')}`,
-    },
-    pathToCreate: {
-        value: process.argv[3] as (PathLike | undefined),
-        direction: `путь к директории, где нужно создать компанент`,
-    },
-    name: {
-        value: process.argv[4] as (Name | undefined),
-        direction: `имя компанента`,
-    }
-}
-
-function main() {
-    Object.values(args).forEach(({value, direction}, index) => {
-        if (!value) {
-            throw Error(`Укажите (${index + 1} аргументом) ${direction}.`);
-        }
-    })
-    const {
-        typeTemplate: {value: typeTemplate},
-        pathToCreate: {value: pathToCreate},
-        name: {value: name}
-    } = args
-
-    switch (typeTemplate){
-        case TemplateType.RC:
-            createRC(pathToCreate as string, name)
-            break
-    }
-}
+import validateArguments from "./lib/validateArguments/validateArguments";
+import {argsValidates, argsValues} from "./const/CLIargs";
+import {typeTemplateFiles} from "./const/templates";
+import fs from "fs/promises";
+import path from "path";
 
 try {
-    main()
-} catch (e) {
-    console.log(e.message)
-}
+    validateArguments(argsValidates)
+    const {typeTemplate, name, pathToDir} = argsValues
 
+    new Promise<string[]>(resolve => {
+        if (process.argv[4]) {
+            fs.mkdir(path.resolve(pathToDir, name.upper), {})
+                .then(() => {
+                    resolve([pathToDir, name.upper])
+                })
+        } else {
+            resolve([pathToDir])
+        }
+    })
+        .then((startPath) => {
+            typeTemplateFiles[typeTemplate].forEach(([nameMutator, ...formats]) => {
+                const fullName = path.resolve(...startPath, [name[nameMutator], ...formats].filter(e => e).join('.'))
+                fs.writeFile(fullName, 'code')
+            })
+        })
+
+} catch (e) {
+    console.log(e)
+}
