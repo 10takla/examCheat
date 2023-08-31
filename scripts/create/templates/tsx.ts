@@ -1,24 +1,16 @@
-import {Name} from "../types/args";
-import {TemplateFile, TemplateFormat} from "../types/templates";
+import {TemplateFileProps} from "../types/templates/shared";
 
-export interface TemplateFileCode {
-    name: Name
-    combineNames: `${TemplateFile}.${TemplateFormat}`[]
-}
-
-
-export default ({name, combineNames}: TemplateFileCode) =>{
+export default ({genericNameMutator, name, fileNames}: TemplateFileProps) =>{
     const interfaceConst = 'interface'
     const IPN = name.upper
-    const CN = name.upper
-    const CFN = name.upper
-    const isStyleInclude = combineNames.includes('module.scss')
+    const CN = name[genericNameMutator]
+    const StyleFN = fileNames['module.scss']
 
-    return `
-import { classNames } from 'shared/lib/classNames/classNames';
+    return (
+        `import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
-${isStyleInclude ? `import cls from "./${CFN}.module.scss\n"`: ''}
+${StyleFN ? `import cls from "./${StyleFN}.module.scss"\n` : ''}
 ${interfaceConst} ${IPN}Props {
     className?: string
 }
@@ -29,10 +21,10 @@ export const ${CN} = memo((props: ${IPN}Props) => {
     } = props;
     const { t } = useTranslation();
     return (
-        <div${isStyleInclude ? ' className={classNames(cls.tsx, {}, [className])}' : ''}>
+        <div${StyleFN ? ' className={classNames(cls.tsx, {}, [className])}' : ''}>
         
         </div>
     );
-});
-    `
+});`
+    )
 }

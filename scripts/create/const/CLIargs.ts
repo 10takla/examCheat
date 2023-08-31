@@ -1,7 +1,7 @@
 import {CLIArgs, ValidateArg} from "../types/args";
 import mutateFirsLetter from "../lib/mutateFirsLetter";
 import path from "path";
-import {Template} from "../types/templates";
+import {Template} from "../types/templates/shared";
 import {templateCombines, templatePacks} from "./templates";
 
 const srcPath = path.resolve(process.cwd(), 'src')

@@ -2,8 +2,9 @@ import validateArguments from "./lib/validateArguments/validateArguments";
 import {argsValidates, argsValues} from "./const/CLIargs";
 import {templateCombines, templatePacks} from "./const/templates";
 import createCombineFiles from './lib/createCombineFiles'
-import {TemplateCombine, TemplatePacks} from "./types/templates";
 import makeRootDir from "./lib/makeRootDir";
+import {TemplatePacks} from "./types/templates/packs";
+import {TemplateCombine} from "./types/templates/combines";
 
 try {
     validateArguments(argsValidates)

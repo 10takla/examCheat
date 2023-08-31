@@ -1,5 +1,5 @@
 import mutateFirsLetter from "../lib/mutateFirsLetter";
-import {Template} from "./templates";
+import {Template} from "./templates/shared";
 
 export type CLIArgName = 'template' | 'pathToDir' | 'name'
 

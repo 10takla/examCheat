@@ -1,11 +1,6 @@
-import {Name} from "../types/args";
-import {TemplateFile} from "../types/templates";
-import {TypeTemplate} from "../const/templates";
+import {TemplatePreFormat} from "../types/templates/files";
 
-interface formatFile extends Record<TypeTemplate, any>{
 
-}
-
-export default (name: string, preFormat: TemplateFile, format: string) => {
+export default (name: string, preFormat: TemplatePreFormat, format: string) => {
     return `${name}.${preFormat}.format`
 }

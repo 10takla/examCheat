@@ -1,8 +1,9 @@
-import {TemplateCombines, TemplatePacks} from "../types/templates";
+import {TemplatePacks} from "../types/templates/packs";
+import {TemplateCombines} from "../types/templates/combines";
 
 export const templateCombines: TemplateCombines = {
     'rc': [
-        ['upper', undefined, 'tsx'],
+        ['upper', 'tsx'],
         ['upper', 'module', 'scss'],
         ['upper', 'stories', 'tsx'],
     ],
@@ -10,7 +11,7 @@ export const templateCombines: TemplateCombines = {
         ['lower', 'slice', 'ts'],
         ['lower', 'selector', 'ts'],
         ['lower', 'service', 'ts'],
-        ['lower', 'type', 'ts']
+        ['upper', 'types', 'ts']
     ],
     'api': [
         ['lower', 'api', 'ts']
