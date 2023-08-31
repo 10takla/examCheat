@@ -1,25 +1,29 @@
-import {TypeTemplateFiles} from "../types/templates";
+import {TemplateCombines, TemplatePacks} from "../types/templates";
 
-export enum TypeTemplate {
-    RC = 'rc',
-    ML = 'ml',
-    API = 'api'
-}
-
-
-export const typeTemplateFiles: TypeTemplateFiles = {
-    [TypeTemplate.RC]: [
+export const templateCombines: TemplateCombines = {
+    'rc': [
         ['upper', undefined, 'tsx'],
         ['upper', 'module', 'scss'],
         ['upper', 'stories', 'tsx'],
     ],
-    [TypeTemplate.ML]: [
+    'ml': [
         ['lower', 'slice', 'ts'],
         ['lower', 'selector', 'ts'],
         ['lower', 'service', 'ts'],
         ['lower', 'type', 'ts']
     ],
-    [TypeTemplate.API]: [
+    'api': [
         ['lower', 'api', 'ts']
+    ]
+}
+
+export const templatePacks: TemplatePacks = {
+    pc: [
+        ['rc', 'ui'],
+        ['ml', 'model'],
+    ],
+    pa: [
+        ['rc', 'ui'],
+        ['api', 'api'],
     ]
 }

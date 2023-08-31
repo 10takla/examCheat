@@ -1,11 +1,11 @@
-import {TypeTemplate} from "../const/templates";
 import mutateFirsLetter from "../lib/mutateFirsLetter";
+import {Template} from "./templates";
 
-export type CLIArgName = 'typeTemplate' | 'pathToDir' | 'name'
+export type CLIArgName = 'template' | 'pathToDir' | 'name'
 
 
 export interface CLIArgs extends Partial<Record<CLIArgName, any>> {
-    typeTemplate: TypeTemplate,
+    template: Template,
     pathToDir: string,
     name?: Name,
 }

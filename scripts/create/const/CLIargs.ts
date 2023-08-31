@@ -1,11 +1,12 @@
-import {CLIArgs, Name, ValidateArg} from "../types/args";
-import {TypeTemplate} from "./templates";
+import {CLIArgs, ValidateArg} from "../types/args";
 import mutateFirsLetter from "../lib/mutateFirsLetter";
 import path from "path";
+import {Template} from "../types/templates";
+import {templateCombines, templatePacks} from "./templates";
 
 const srcPath = path.resolve(process.cwd(), 'src')
 export const argsValues: CLIArgs = {
-    typeTemplate: process.argv[2] as TypeTemplate,
+    template: process.argv[2] as Template,
     pathToDir: path.isAbsolute(process.argv[3]) ? process.argv[3]
         : path.resolve(srcPath, process.argv[3]),
     name: mutateFirsLetter(
@@ -15,14 +16,15 @@ export const argsValues: CLIArgs = {
 }
 export const argsValidates: ValidateArg[] = [
     {
-        propName: 'typeTemplate',
+        propName: 'template',
         baseErrorMessage: `тип: `,
         checks: [
             {
-                check: Boolean(argsValues.typeTemplate),
+                check: Boolean(argsValues.template),
                 nextCheck: {
-                    check: Object.values(TypeTemplate).includes(argsValues.typeTemplate),
-                    errorMessage: 'Не то выбери из rc, pc'
+                    check: [...Object.keys(templatePacks), ...Object.keys(templateCombines)]
+                        .includes(argsValues.template),
+                    errorMessage: `Не то выбери из ${[...Object.keys(templatePacks), ...Object.keys(templateCombines)].join(', ')}`
                 }
             },
         ],

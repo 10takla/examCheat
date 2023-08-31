@@ -1,30 +1,26 @@
 import validateArguments from "./lib/validateArguments/validateArguments";
 import {argsValidates, argsValues} from "./const/CLIargs";
-import {typeTemplateFiles} from "./const/templates";
-import fs from "fs/promises";
-import path from "path";
+import {templateCombines, templatePacks} from "./const/templates";
+import createCombineFiles from './lib/createCombineFiles'
+import {TemplateCombine, TemplatePacks} from "./types/templates";
+import makeRootDir from "./lib/makeRootDir";
 
 try {
     validateArguments(argsValidates)
-    const {typeTemplate, name, pathToDir} = argsValues
+    const isRootDir = !!process.argv[4]
 
-    new Promise<string[]>(resolve => {
-        if (process.argv[4]) {
-            fs.mkdir(path.resolve(pathToDir, name.upper), {})
-                .then(() => {
-                    resolve([pathToDir, name.upper])
-                })
-        } else {
-            resolve([pathToDir])
-        }
-    })
-        .then((startPath) => {
-            typeTemplateFiles[typeTemplate].forEach(([nameMutator, ...formats]) => {
-                const fullName = path.resolve(...startPath, [name[nameMutator], ...formats].filter(e => e).join('.'))
-                fs.writeFile(fullName, 'code')
+    const {template, pathToDir, name} = argsValues
+    if (Object.keys(templateCombines).includes(template)) {
+        createCombineFiles(template as TemplateCombine, pathToDir, isRootDir ? name.upper : undefined)
+    }
+    if (Object.keys(templatePacks).includes(template)) {
+        const tmp = templatePacks[template] as TemplatePacks[keyof TemplatePacks]
+        makeRootDir(pathToDir, isRootDir ? name.upper : undefined, (startPath) => {
+            tmp.forEach(([templateCombine, dirName]) => {
+                createCombineFiles(templateCombine, startPath , dirName)
             })
         })
-
+    }
 } catch (e) {
-    console.log(e)
+    console.log(e.message)
 }
