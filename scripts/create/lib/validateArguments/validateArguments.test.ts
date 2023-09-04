@@ -1,19 +1,19 @@
-import validateArguments from "./validateArguments";
-import {ValidateArg} from "../../types/args";
+import validateArguments from './validateArguments';
+import { type ValidateArg } from '../../types/args';
 
 describe('validateArguments', () => {
     test('without checking of argument', () => {
-        const baseError = 'some value'
-        const argsValidates: Partial<ValidateArg>[] = [
+        const baseError = 'some value';
+        const argsValidates: Array<Partial<ValidateArg>> = [
             {
                 baseErrorMessage: baseError,
-                checks: []
-            }
-        ]
+                checks: [],
+            },
+        ];
         expect(() => validateArguments(argsValidates as ValidateArg[])).not.toThrowError();
-    })
+    });
     test('checking of one error without messageError', () => {
-        const baseError = 'some value'
+        const baseError = 'some value';
         const argsValidates: ValidateArg[] = [
             {
                 propName: 'typeTemplate',
@@ -21,17 +21,17 @@ describe('validateArguments', () => {
                 checks: [
                     {
                         check: false,
-                    }
-                ]
+                    },
+                ],
 
-            }
-        ]
+            },
+        ];
         expect(() => validateArguments(argsValidates)).toThrowError(
-            `Укажите (1 аргументом) ${baseError}`
+            `Укажите (1 аргументом) ${baseError}`,
         );
-    })
+    });
     test('with 2 level tree checks', () => {
-        const baseError = 'some value'
+        const baseError = 'some value';
         const argsValidates: ValidateArg[] = [
             {
                 propName: 'typeTemplate',
@@ -43,18 +43,18 @@ describe('validateArguments', () => {
                         nextCheck: {
                             check: false,
                             errorMessage: 'уровень 2',
-                        }
-                    }
-                ]
+                        },
+                    },
+                ],
 
-            }
-        ]
+            },
+        ];
         expect(() => validateArguments(argsValidates)).toThrowError(
-            `Укажите (1 аргументом) уровень 2`
+            'Укажите (1 аргументом) уровень 2',
         );
-    })
+    });
     test('with multi-checks', () => {
-        const baseError = 'some value'
+        const baseError = 'some value';
         const argsValidates: ValidateArg[] = [
             {
                 propName: 'typeTemplate',
@@ -66,7 +66,7 @@ describe('validateArguments', () => {
                         nextCheck: {
                             check: false,
                             errorMessage: 'проверка 2 уровень 2',
-                        }
+                        },
                     },
                     {
                         check: true,
@@ -82,18 +82,18 @@ describe('validateArguments', () => {
                         nextCheck: {
                             check: false,
                             errorMessage: 'проверка 4 уровень 2',
-                        }
-                    }
-                ]
+                        },
+                    },
+                ],
 
-            }
-        ]
+            },
+        ];
         expect(validateArguments(argsValidates, true)).toEqual([
             [
                 'проверка 1 уровень 1',
                 'проверка 3 уровень 1',
-                'проверка 4 уровень 2'
-            ]
+                'проверка 4 уровень 2',
+            ],
         ]);
-    })
-})
+    });
+});

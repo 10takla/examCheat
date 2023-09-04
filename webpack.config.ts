@@ -1,7 +1,7 @@
-import path from "path";
-import HtmlWebpackPlugin from "html-webpack-plugin";
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const config =   {
+const config = {
     entry: {
         app: './src/index.tsx',
     },
@@ -20,12 +20,12 @@ const config =   {
             {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
-                exclude: /node_modules/
-            }
-        ]
+                exclude: /node_modules/,
+            },
+        ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        extensions: ['.tsx', '.ts', '.js'],
     },
     output: {
         filename: '[name].[contenthash].bundle.js',
@@ -34,4 +34,4 @@ const config =   {
     },
 };
 
-export default config
+export default config;

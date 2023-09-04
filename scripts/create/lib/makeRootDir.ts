@@ -1,18 +1,22 @@
-import fs from "fs/promises";
-import path from "path";
+import fs from 'fs/promises';
+import path from 'path';
 
-export default (pathToDir: string, name: string | undefined, callback: (dirPath: string) => void)=> {
-    new Promise<string>(resolve => {
+export default (
+    pathToDir: string,
+    name: string | undefined,
+    callback: (dirPath: string) => void,
+) => {
+    new Promise<string>((resolve) => {
         if (name) {
             fs.mkdir(path.resolve(pathToDir, name), {})
                 .then(() => {
-                    resolve(path.resolve(pathToDir, name))
-                })
+                    resolve(path.resolve(pathToDir, name));
+                });
         } else {
-            resolve(pathToDir)
+            resolve(pathToDir);
         }
     })
         .then((dirPath) => {
-            callback(dirPath)
-        })
-}
+            callback(dirPath);
+        });
+};

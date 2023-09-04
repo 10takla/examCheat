@@ -1,9 +1,6 @@
-import {TemplateFileProps} from "../types/templates/shared";
+import { type TemplateFileProps } from '../types/templates/shared';
 
-export default ({name, genericNameMutator}: TemplateFileProps) =>{
-
-    return `.${name[genericNameMutator]} {
+export default ({ name, genericName }: TemplateFileProps) => `.${genericName} {
 
 }
-`
-}
+`;

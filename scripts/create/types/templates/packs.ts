@@ -1,24 +1,17 @@
-import {DeepPartial} from "./shared";
-import {CombineThree, CombineThreeRules} from "./combines";
+import { type DeepPartial } from './shared';
+import { type TemplateCombine, type TemplateCombines } from './combines';
 
 export type TemplatePack = 'pc' | 'pa'
 
 type PackThreeRules = {
-    [key in TemplatePack]: CombineThreeRules
+  [key in TemplatePack]: TemplateCombine
 }
 
 export interface PacksThree extends DeepPartial<PackThreeRules> {
-    pc: {
-        rc: CombineThree['rc']
-        ml: CombineThree['ml']
-    },
-    pa: {
-        rc: CombineThree['rc']
-        api: CombineThree['api']
-    }
+  pc: 'rc' | 'ml'
+  pa: 'rc' | 'api'
 }
 
 export type TemplatePacks = {
-    [K in keyof PacksThree]:
-    Array<[keyof PacksThree[K], string]>
+  [K in keyof PacksThree]: Array<[TemplateCombines[PacksThree[K]], string]>
 }

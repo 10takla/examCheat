@@ -3,7 +3,7 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type {Config} from 'jest';
+import type { Config } from 'jest';
 
 const config: Config = {
     // All imported modules in your tests should be mocked automatically
@@ -19,36 +19,36 @@ const config: Config = {
     clearMocks: true,
 
     coveragePathIgnorePatterns: [
-        "\\\\node_modules\\\\"
+        '\\\\node_modules\\\\',
     ],
 
     moduleDirectories: [
-        "node_modules"
+        'node_modules',
     ],
 
     moduleFileExtensions: [
-        "js",
-        "mjs",
-        "cjs",
-        "jsx",
-        "ts",
-        "tsx",
-        "json",
-        "node"
+        'js',
+        'mjs',
+        'cjs',
+        'jsx',
+        'ts',
+        'tsx',
+        'json',
+        'node',
     ],
     rootDir: '../../',
     testMatch: [
         '<rootDir>scripts/**/*(*.)@(spec|test).[tj]s?(x)',
         '<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)',
     ],
-    "reporters": [
-        "default",
-        ["jest-html-reporters", {
-            "publicPath": "./html-report",
-            "filename": "report.html",
-            "openReport": true
-        }]
-    ]
+    reporters: [
+        'default',
+        ['jest-html-reporters', {
+            publicPath: './html-report',
+            filename: 'report.html',
+            openReport: true,
+        }],
+    ],
     // Indicates whether the coverage information should be collected while executing the test
     // collectCoverage: false,
 
@@ -59,7 +59,6 @@ const config: Config = {
     // coverageDirectory: undefined,
 
     // An array of regexp pattern strings used to skip coverage collection
-
 
     // Indicates which provider should be used to instrument code for coverage
     // coverageProvider: "babel",
@@ -101,7 +100,6 @@ const config: Config = {
     // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
     // maxWorkers: "50%",
 
-
     // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
     // moduleNameMapper: {},
 
@@ -135,7 +133,6 @@ const config: Config = {
     // Automatically restore mock state and implementation before every test
     // restoreMocks: false,
 
-
     // A list of paths to directories that Jest should use to search for files in
     // roots: [
     //   "<rootDir>"
@@ -164,7 +161,6 @@ const config: Config = {
 
     // Adds a location field to test results
     // testLocationInResults: false,
-
 
     // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
     // testPathIgnorePatterns: [

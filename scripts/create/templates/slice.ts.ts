@@ -1,12 +1,11 @@
-import {TemplateFileProps} from "../types/templates/shared";
+import { type TemplateFileProps } from '../types/templates/shared';
 
-
-export default ({genericNameMutator, name, fileNames}: TemplateFileProps) =>{
-    const SLiceN = name[genericNameMutator]
-    const TypeFN = fileNames['types.ts']
-    const TypeConst = `${TypeFN ? TypeFN : '#here your type#'}`
-    const ServFN = fileNames['service.ts']
-    const ServiceConst = `fetch${name.upper}Data`
+export default ({ genericName, name, fileCombineNames }: TemplateFileProps) => {
+    const SLiceN = genericName;
+    const TypeFN = fileCombineNames['types.ts'];
+    const TypeConst = `${TypeFN || '#here your type#'}`;
+    const ServFN = fileCombineNames['service.ts'];
+    const ServiceConst = `fetch${name.upper}Data`;
 
     return `import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ${TypeConst}, ${name.upper}Schema } from '../types/${TypeConst}';
@@ -43,5 +42,5 @@ export const ${SLiceN}Slice = createSlice({
 });
 
 export const { actions: ${name.lower}Actions } = ${name.lower}Slice;
-export const { reducer: ${name.lower}Reducer } = ${name.lower}Slice;`
-}
+export const { reducer: ${name.lower}Reducer } = ${name.lower}Slice;`;
+};

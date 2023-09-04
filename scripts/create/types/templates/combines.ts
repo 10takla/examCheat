@@ -1,41 +1,18 @@
-import {Name} from "../args";
-import {FilesThree, TemplateFormat, TemplatePreFormat} from "./files";
-import {DeepPartial} from "./shared";
+import { type TemplateFiles, type TemplatePreFormat } from './files';
+import { type DeepPartial } from './shared';
 
 export type TemplateCombine = 'rc' | 'ml' | 'api'
 
 export type CombineThreeRules = {
-    [key in TemplateCombine]: {
-        [key in TemplatePreFormat]: TemplateFormat
-    }
+  [key in TemplateCombine]: TemplatePreFormat
 }
 
 export interface CombineThree extends DeepPartial<CombineThreeRules> {
-    rc: {
-        tsx: FilesThree["tsx"]
-        module: FilesThree["module"]
-        stories: FilesThree["stories"]
-    },
-    ml: {
-        slice: FilesThree["slice"]
-        selector: FilesThree["selector"]
-        service: FilesThree["service"]
-        types: FilesThree["types"]
-    }
-    api: {
-        api: FilesThree["api"]
-    }
+  rc: 'tsx' | 'module' | 'stories'
+  ml: 'slice' | 'selector' | 'service' | 'types'
+  api: 'api'
 }
 
 export type TemplateCombines = {
-    [key in TemplateCombine]:
-    Array<[
-        keyof Name,
-        ...Array<
-            keyof CombineThree[key] |
-            CombineThree[key][keyof CombineThree[key]]
-        >
-    ]>
+  [key in keyof CombineThree]: Array<TemplateFiles[CombineThree[key]]>
 }
-
-
