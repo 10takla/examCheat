@@ -16,7 +16,7 @@ describe('validateArguments', () => {
         const baseError = 'some value';
         const argsValidates: ValidateArg[] = [
             {
-                propName: 'typeTemplate',
+                propName: 'template',
                 baseErrorMessage: baseError,
                 checks: [
                     {
@@ -34,7 +34,7 @@ describe('validateArguments', () => {
         const baseError = 'some value';
         const argsValidates: ValidateArg[] = [
             {
-                propName: 'typeTemplate',
+                propName: 'template',
                 baseErrorMessage: baseError,
                 checks: [
                     {
@@ -57,7 +57,7 @@ describe('validateArguments', () => {
         const baseError = 'some value';
         const argsValidates: ValidateArg[] = [
             {
-                propName: 'typeTemplate',
+                propName: 'template',
                 baseErrorMessage: baseError,
                 checks: [
                     {

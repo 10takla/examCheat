@@ -1,16 +1,16 @@
 import { type TemplateFileProps } from '../types/templates/shared';
 
-export default ({ genericName, name, fileCombineNames }: TemplateFileProps) => {
+export default ({ genericName, name, relatedFiles }: TemplateFileProps) => {
     const interfaceConst = 'interface';
     const IPN = name.upper;
     const CN = genericName;
-    const StyleFN = fileCombineNames['module.scss'];
+    const Style = relatedFiles.module;
 
     return (
         `import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
-${StyleFN ? `import cls from "./${StyleFN}.module.scss"\n` : ''}
+${Style ? `import cls from '${Style.pathTo}';\n` : ''}
 ${interfaceConst} ${IPN}Props {
     className?: string
 }
@@ -20,11 +20,12 @@ export const ${CN} = memo((props: ${IPN}Props) => {
         className,
     } = props;
     const { t } = useTranslation();
+    
     return (
-        <div${StyleFN ? ' className={classNames(cls.tsx, {}, [className])}' : ''}>
+        <div className={classNames(${Style ? `cls.${Style.genericName}` : '""'}, {}, [className])}>
         
         </div>
     );
-});`
-    );
+});
+`);
 };

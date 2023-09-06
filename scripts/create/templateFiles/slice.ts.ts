@@ -1,16 +1,17 @@
 import { type TemplateFileProps } from '../types/templates/shared';
+import { TemplateFiles } from '../types/templates/files';
 
-export default ({ genericName, name, fileCombineNames }: TemplateFileProps) => {
+export default ({ genericName, name, relatedFiles }: TemplateFileProps) => {
     const SLiceN = genericName;
-    const TypeFN = fileCombineNames['types.ts'];
-    const TypeConst = `${TypeFN || '#here your type#'}`;
-    const ServFN = fileCombineNames['service.ts'];
+    const Types = relatedFiles?.types;
+    const TypeConst = Types ? Types.genericName : '#here your type#';
+    const Service = relatedFiles?.service;
     const ServiceConst = `fetch${name.upper}Data`;
 
     return `import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ${TypeConst}, ${name.upper}Schema } from '../types/${TypeConst}';
-${ServFN ? `import { ${ServiceConst} } from '../services/${ServFN}';\n` : ''}
-const initialState: ${name.upper}Schema = {
+${Service ? `import { ${TypeConst}, ${TypeConst}Schema } from '${Types.pathTo}';\n` : ''}
+${Service ? `import { ${ServiceConst} } from '${Service.pathTo}';\n` : ''}
+const initialState: ${TypeConst}Schema = {
     isLoading: false,
     error: undefined,
     data: undefined,

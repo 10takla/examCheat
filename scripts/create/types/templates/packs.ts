@@ -1,17 +1,21 @@
-import { type DeepPartial } from './shared';
+import { templateWithDir } from './shared';
 import { type TemplateCombine, type TemplateCombines } from './combines';
+import { TemplatePreFormat } from './files';
+import { DeepPartial } from '../shared';
 
 export type TemplatePack = 'pc' | 'pa'
 
 type PackThreeRules = {
-  [key in TemplatePack]: TemplateCombine
+    [key in TemplatePack]: TemplateCombine | TemplatePreFormat
 }
 
-export interface PacksThree extends DeepPartial<PackThreeRules> {
-  pc: 'rc' | 'ml'
-  pa: 'rc' | 'api'
+interface PacksThree extends DeepPartial<PackThreeRules> {
+    pc: 'rc' | 'ml'
+    pa: 'rc' | 'api'
 }
 
 export type TemplatePacks = {
-  [K in keyof PacksThree]: Array<[TemplateCombines[PacksThree[K]], string]>
-}
+    [K in keyof PacksThree]: templateWithDir<
+        TemplateCombines[PacksThree[K]]
+    >[]
+} & TemplateCombines

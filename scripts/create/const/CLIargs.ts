@@ -2,7 +2,7 @@ import path from 'path';
 import { type CLIArgs, type ValidateArg } from '../types/args';
 import mutateFirsLetter from '../lib/mutateFirsLetter';
 import { type Template } from '../types/templates/shared';
-import { templateCombines, templatePacks } from './templates';
+import { templatePacks } from './templates';
 
 const srcPath = path.resolve(process.cwd(), 'src');
 export const CLIargsValues: CLIArgs = {
@@ -23,10 +23,9 @@ export const CLIargsValidates: ValidateArg[] = [
             {
                 check: Boolean(CLIargsValues.template),
                 nextCheck: {
-                    check: [...Object.keys(templatePacks), ...Object.keys(templateCombines)]
+                    check: [...Object.keys(templatePacks)]
                         .includes(CLIargsValues.template),
-                    errorMessage: `Не то выбери из ${[...Object.keys(templatePacks),
-                        ...Object.keys(templateCombines)].join(', ')}`,
+                    errorMessage: `Не то выбери из ${Object.keys(templatePacks).join(', ')}`,
                 },
             },
         ],

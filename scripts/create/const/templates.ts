@@ -2,41 +2,39 @@ import { type TemplatePacks } from '../types/templates/packs';
 import { type TemplateCombines } from '../types/templates/combines';
 import { type TemplateFiles } from '../types/templates/files';
 
-export const templateFiles: TemplateFiles = {
-    tsx: ['upper', 'tsx'],
-    module: ['upper', 'module.scss'],
-    stories: ['upper', 'stories.tsx'],
-    slice: ['lower', 'slice.ts'],
-    selector: ['lower', 'selector.ts'],
-    service: ['lower', 'service.ts'],
-    types: ['lower', 'types.ts'],
-    api: ['lower', 'api.ts'],
+const templateFiles: TemplateFiles = {
+    tsx: { nameMutator: 'upper', format: 'tsx', name: 'tsx' },
+    module: { nameMutator: 'upper', format: 'module.scss', name: 'module' },
+    stories: { nameMutator: 'upper', format: 'stories.tsx', name: 'stories' },
+    slice: { nameMutator: 'lower', format: 'slice.ts', name: 'slice' },
+    selector: { nameMutator: 'lower', format: 'selector.ts', name: 'selector' },
+    service: { nameMutator: 'lower', format: 'service.ts', name: 'service' },
+    types: { nameMutator: 'lower', format: 'types.ts', name: 'types' },
+    api: { nameMutator: 'lower', format: 'api.ts', name: 'api' },
 };
 
-export const templateCombines: TemplateCombines = {
+const templateCombines: TemplateCombines = {
     rc: [
-        templateFiles.tsx,
-        templateFiles.module,
-        templateFiles.stories,
+        { template: templateFiles.tsx },
+        { template: templateFiles.module },
     ],
     ml: [
-        templateFiles.slice,
-        templateFiles.selector,
-        templateFiles.service,
-        templateFiles.types,
+        { template: templateFiles.slice, dirName: 'slice' },
+        { template: templateFiles.selector, dirName: 'selectors' },
+        { template: templateFiles.service, dirName: 'services' },
+        { template: templateFiles.types, dirName: 'types' },
     ],
-    api: [
-        templateFiles.api,
-    ],
+    ...templateFiles,
 };
 
 export const templatePacks: TemplatePacks = {
     pc: [
-        [templateCombines.rc, 'ui'],
-        [templateCombines.ml, 'model'],
+        { template: templateCombines.rc, dirName: 'ui' },
+        { template: templateCombines.ml, dirName: 'model' },
     ],
     pa: [
-        [templateCombines.rc, 'ui'],
-        [templateCombines.api, 'api'],
+        { template: templateCombines.rc, dirName: 'ui' },
+        { template: templateFiles.api, dirName: 'api' },
     ],
+    ...templateCombines,
 };

@@ -1,5 +1,6 @@
 import { type Name } from '../args';
-import { type DeepPartial } from './shared';
+
+import { DeepPartial } from '../shared';
 
 export type TemplateFormat = `${'t' | 'j'}s${'x' | ''}` | 'scss' | 'css'
 
@@ -18,6 +19,7 @@ export interface FilesThree extends DeepPartial<FilesThreeRules> {
     service: 'ts' | 'js'
     types: 'ts'
     api: 'ts' | 'js'
+
 }
 
 export type FullFormat<
@@ -26,5 +28,9 @@ export type FullFormat<
 > = `${`${P}.` | ''}${F}`
 
 export type TemplateFiles = {
-    [key in keyof FilesThree]: [keyof Name, `${`${key}.` | ''}${FilesThree[key]}`]
+    [key in keyof FilesThree]: {
+        nameMutator: keyof Name
+        format: `${`${key}.` | ''}${FilesThree[key]}`,
+        name: key
+    }
 }

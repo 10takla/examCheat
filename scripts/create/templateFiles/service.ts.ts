@@ -1,13 +1,13 @@
 import { type TemplateFileProps } from '../types/templates/shared';
 
-export default ({ name, fileCombineNames }: TemplateFileProps) => {
-    const TFN = fileCombineNames['types.ts'];
+export default ({ name, relatedFiles }: TemplateFileProps) => {
+    const Types = relatedFiles?.types;
     const ServiceConst = `fetch${name.upper}Data`;
-    const TypeConst = `${TFN ? name.upper : '#here your type#'}`;
+    const TypeConst = `${Types ? Types.genericName : '#here your type#'}`;
 
     return `import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-${TFN ? `import { ${name.upper} } from '../../types/${TFN}';` : ''}
+${Types ? `import { ${name.upper} } from '${Types.pathTo}';` : ''}
 
 export const ${ServiceConst} = createAsyncThunk<
     ${TypeConst},

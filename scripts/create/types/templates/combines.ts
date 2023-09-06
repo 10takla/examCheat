@@ -1,18 +1,18 @@
 import { type TemplateFiles, type TemplatePreFormat } from './files';
-import { type DeepPartial } from './shared';
+import { templateWithDir } from './shared';
+import { DeepPartial } from '../shared';
 
-export type TemplateCombine = 'rc' | 'ml' | 'api'
+export type TemplateCombine = 'rc' | 'ml'
 
-export type CombineThreeRules = {
+type CombineThreeRules = {
   [key in TemplateCombine]: TemplatePreFormat
 }
 
-export interface CombineThree extends DeepPartial<CombineThreeRules> {
+interface CombineThree extends DeepPartial<CombineThreeRules> {
   rc: 'tsx' | 'module' | 'stories'
   ml: 'slice' | 'selector' | 'service' | 'types'
-  api: 'api'
 }
 
 export type TemplateCombines = {
-  [key in keyof CombineThree]: Array<TemplateFiles[CombineThree[key]]>
-}
+  [key in keyof CombineThree]: templateWithDir<TemplateFiles[CombineThree[key]]>[]
+} & TemplateFiles

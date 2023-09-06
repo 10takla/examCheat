@@ -5,7 +5,7 @@
     "sourceMap": true,
     "outDir": "./dist/",
     "noImplicitAny": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "allowJs": true,
     "moduleResolution": "node",
     "esModuleInterop": true,

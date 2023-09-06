@@ -1,5 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import buildLoaders from './config/build/buildLoaders';
 
 const config = {
     entry: {
@@ -16,13 +18,10 @@ const config = {
         }),
     ],
     module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            },
-        ],
+        rules: buildLoaders(),
+    },
+    loaders: {
+
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],

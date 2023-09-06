@@ -1,8 +1,8 @@
 import { type TemplateFileProps } from '../types/templates/shared';
 
-export default ({ fileCombineNames, pathToDir }: TemplateFileProps) => {
-    const ReactCFN = fileCombineNames.tsx;
-    const reactComponentConst = ReactCFN ?? '/*your react component*/';
+export default ({ pathToDir, relatedFiles }: TemplateFileProps) => {
+    const ReactCFN = relatedFiles.tsx;
+    const reactComponentConst = ReactCFN.genericName ?? '/*your react component*/';
     const tmp = pathToDir.split('\\');
     const GroupConst = tmp.find((part, index) => tmp[index - 1] === 'src'
         && ['app', 'pages', 'widgets', 'features', 'entities', 'shared']
@@ -10,7 +10,7 @@ export default ({ fileCombineNames, pathToDir }: TemplateFileProps) => {
 
     return `import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-${ReactCFN ? `import { ${ReactCFN} } from './${ReactCFN}';\n` : ''}
+${ReactCFN ? `import { ${ReactCFN.genericName} } from '${ReactCFN.pathTo}';\n` : ''}
 export default {
     title: '${[GroupConst, reactComponentConst].filter((e) => e).join('/')}',
     component: ${reactComponentConst},
