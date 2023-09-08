@@ -10,8 +10,8 @@ type PackThreeRules = {
 }
 
 interface PacksThree extends DeepPartial<PackThreeRules> {
-    pc: 'rc' | 'ml'
-    pa: 'rc' | 'api'
+    pc: 'rc' | 'ml' | 'index'
+    pa: 'rc' | 'api' | 'index'
 }
 
 export type TemplatePacks = {

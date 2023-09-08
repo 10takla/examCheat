@@ -11,6 +11,7 @@ const templateFiles: TemplateFiles = {
     service: { nameMutator: 'lower', format: 'service.ts', name: 'service' },
     types: { nameMutator: 'lower', format: 'types.ts', name: 'types' },
     api: { nameMutator: 'lower', format: 'api.ts', name: 'api' },
+    index: { format: 'index.ts', name: 'index' },
 };
 
 const templateCombines: TemplateCombines = {
@@ -31,10 +32,12 @@ export const templatePacks: TemplatePacks = {
     pc: [
         { template: templateCombines.rc, dirName: 'ui' },
         { template: templateCombines.ml, dirName: 'model' },
+        { template: templateFiles.index },
     ],
     pa: [
         { template: templateCombines.rc, dirName: 'ui' },
         { template: templateFiles.api, dirName: 'api' },
+        { template: templateFiles.index },
     ],
     ...templateCombines,
 };

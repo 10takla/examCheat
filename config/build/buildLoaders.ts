@@ -1,26 +1,29 @@
-export default () => {
-    const loaders = [{
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
+export default (isDev: boolean) => {
+    const tsLoader = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
-    },
-    {
-        test: /.s[ac]css/,
+    };
+    const stylesLoader = {
+        test: /\.s[ac]ss|css$/,
         use: [
-            'style-loader',
+            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
             {
                 loader: 'css-loader',
                 options: {
                     modules: {
-                        auto: (resPath: string) => Boolean(resPath.includes('.modules.')),
+                        auto: (resPath: string) => Boolean(resPath.includes('.module.')),
                     },
                 },
             },
             'sass-loader',
         ],
         exclude: /node_modules/,
-    },
+    };
+    return [
+        stylesLoader,
+        tsLoader,
     ];
-
-    return loaders;
 };

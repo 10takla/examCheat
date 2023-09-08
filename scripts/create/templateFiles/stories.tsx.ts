@@ -1,7 +1,7 @@
 import { type TemplateFileProps } from '../types/templates/shared';
 
-export default ({ pathToDir, relatedFiles }: TemplateFileProps) => {
-    const ReactCFN = relatedFiles.tsx;
+export default ({ pathToDir, relativeFiles }: TemplateFileProps) => {
+    const ReactCFN = relativeFiles.tsx;
     const reactComponentConst = ReactCFN.genericName ?? '/*your react component*/';
     const tmp = pathToDir.split('\\');
     const GroupConst = tmp.find((part, index) => tmp[index - 1] === 'src'

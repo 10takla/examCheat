@@ -7,5 +7,5 @@ interface GetFullNameProps extends Pick<TemplateFileProps, 'pathToDir'| 'generic
 
 export default ({ pathToDir, genericName, format }: GetFullNameProps) => path.resolve(
     pathToDir,
-    [genericName, format].join('.'),
+    [genericName, format].filter((e) => e !== '').join('.'),
 );

@@ -1,7 +1,7 @@
 import { type TemplateFileProps } from '../types/templates/shared';
 
-export default ({ name, relatedFiles }: TemplateFileProps) => {
-    const Types = relatedFiles?.types;
+export default ({ name, relativeFiles }: TemplateFileProps) => {
+    const Types = relativeFiles?.types;
     const ServiceConst = `fetch${name.upper}Data`;
     const TypeConst = `${Types ? Types.genericName : '#here your type#'}`;
 

@@ -1,11 +1,11 @@
 import { type TemplateFileProps } from '../types/templates/shared';
 import { TemplateFiles } from '../types/templates/files';
 
-export default ({ genericName, name, relatedFiles }: TemplateFileProps) => {
+export default ({ genericName, name, relativeFiles }: TemplateFileProps) => {
     const SLiceN = genericName;
-    const Types = relatedFiles?.types;
+    const Types = relativeFiles?.types;
     const TypeConst = Types ? Types.genericName : '#here your type#';
-    const Service = relatedFiles?.service;
+    const Service = relativeFiles?.service;
     const ServiceConst = `fetch${name.upper}Data`;
 
     return `import { createSlice, PayloadAction } from '@reduxjs/toolkit';

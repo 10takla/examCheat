@@ -10,12 +10,13 @@ export interface TemplateFileProps{
     name: Name
     format: FullFormat
     pathToDir: string
-    relatedFiles?: {
+    relativeFiles: {
         [key in keyof TemplateFiles]?: {
             genericName: string,
             pathTo: string
         }
     }
+    alias: string
 }
 
 export type templateWithDir<E> = {

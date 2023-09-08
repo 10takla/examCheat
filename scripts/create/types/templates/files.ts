@@ -6,7 +6,7 @@ export type TemplateFormat = `${'t' | 'j'}s${'x' | ''}` | 'scss' | 'css'
 
 export type TemplatePreFormat = 'tsx' | 'module' | 'stories' |
     'slice' | 'selector' | 'service' | 'types' |
-    'api'
+    'api' | 'index'
 
 type FilesThreeRules = Record<TemplatePreFormat, TemplateFormat>
 
@@ -19,7 +19,7 @@ export interface FilesThree extends DeepPartial<FilesThreeRules> {
     service: 'ts' | 'js'
     types: 'ts'
     api: 'ts' | 'js'
-
+    index: 'ts' | 'js'
 }
 
 export type FullFormat<
@@ -29,7 +29,7 @@ export type FullFormat<
 
 export type TemplateFiles = {
     [key in keyof FilesThree]: {
-        nameMutator: keyof Name
+        nameMutator?: keyof Name
         format: `${`${key}.` | ''}${FilesThree[key]}`,
         name: key
     }

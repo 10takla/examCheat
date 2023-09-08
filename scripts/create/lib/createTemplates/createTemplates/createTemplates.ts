@@ -1,8 +1,8 @@
 import { createDirsThree } from '../lib/createDirsThree';
 import { TemplateFileProps } from '../../../types/templates/shared';
-import createFile from '../lib/createFile';
 import { templatePacks } from '../../../const/templates';
 import getRelativeFiles from '../lib/getRelativeFiles';
+import createFile from '../createFile';
 
 export type CreateTemplatesProps = Pick<TemplateFileProps, 'pathToDir' | 'name'>
     & { template: typeof templatePacks[keyof typeof templatePacks] }
