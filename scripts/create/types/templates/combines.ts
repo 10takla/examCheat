@@ -1,6 +1,5 @@
 import { type TemplateFiles, type TemplatePreFormat } from './files';
 import { templateWithDir } from './shared';
-import { DeepPartial } from '../shared';
 
 export type TemplateCombine = 'rc' | 'ml'
 

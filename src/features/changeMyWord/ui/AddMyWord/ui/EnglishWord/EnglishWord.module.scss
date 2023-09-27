@@ -1,0 +1,9 @@
+.WordOnEngInput {
+  position: relative;
+  > .searchWord {
+    z-index: 1000;
+    box-sizing: border-box;
+    //left: calc(100% + 0.4em);
+    position: absolute;
+  }
+}

@@ -1,28 +1,31 @@
 import fs from 'fs/promises';
 import * as process from 'process';
 import path from 'path';
-import getFullName from './lib/getFullName';
-import { TemplateFileProps } from '../../types/templates/shared';
 import webpackConfig from '../../../../webpack.config';
 import { getRealtivePath } from './lib/getRealtivePath';
 
-export interface CreateFileProps extends Omit<TemplateFileProps, 'alias'> {
+import { TemplateFileProps } from '../../types/templates/shared';
+import getName from './lib/getName';
+import { TemplateFile } from '../../types/templates/files';
 
+export interface CreateFileProps extends
+    Omit<TemplateFileProps, 'alias' | 'fileName'>,
+    Pick<TemplateFile, 'fileName'>
+{
 }
 
 export default async ({
-    format,
     name,
     pathToDir,
+    fileName: { nameMutator, format },
     genericName,
     relativeFiles,
 }: CreateFileProps) => {
-    const fullName = getFullName({ pathToDir, genericName, format });
-    console.log(fullName);
+    const fileName = getName(nameMutator && name[nameMutator], format);
+    const fullName = path.join(pathToDir, fileName);
     try {
         const fullNameTemplate = path.join(process.cwd(), 'scripts', 'create', 'templateFiles', format);
         const relativePath = getRealtivePath(__filename, fullNameTemplate);
-        console.log(relativePath);
         const code = (await import(relativePath))?.default as (_: TemplateFileProps) => string;
         if (!code) throw Error;
         const config = webpackConfig({ mode: 'development' });
@@ -32,9 +35,9 @@ export default async ({
             code({
                 genericName,
                 name,
+                fileName,
                 pathToDir,
                 relativeFiles,
-                format,
                 alias,
             }),
         );

@@ -4,6 +4,8 @@
  */
 
 import type { Config } from 'jest';
+import path from 'path';
+import * as process from 'process';
 
 const config: Config = {
     // All imported modules in your tests should be mocked automatically
@@ -17,15 +19,19 @@ const config: Config = {
 
     // Automatically clear mock calls, instances, contexts and results before every test
     clearMocks: true,
-
     coveragePathIgnorePatterns: [
         '\\\\node_modules\\\\',
     ],
-
+    transform: {
+        '^.+\\.jsx?$': 'babel-jest',
+        '^.+\\.tsx?$': 'ts-jest',
+    },
     moduleDirectories: [
         'node_modules',
     ],
-
+    modulePaths: [
+        '<rootDir>src',
+    ],
     moduleFileExtensions: [
         'js',
         'mjs',
@@ -49,6 +55,11 @@ const config: Config = {
             openReport: true,
         }],
     ],
+    testEnvironment: 'jsdom',
+    moduleNameMapper: {
+        '\\.s?css$': 'identity-obj-proxy',
+        '^@/(.*)$': '<rootDir>src/$1',
+    },
     // Indicates whether the coverage information should be collected while executing the test
     // collectCoverage: false,
 
@@ -164,7 +175,7 @@ const config: Config = {
 
     // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
     // testPathIgnorePatterns: [
-    //   "\\\\node_modules\\\\"
+    //     '\\\\node_modules\\\\',
     // ],
 
     // The regexp pattern or array of patterns that Jest uses to detect test files

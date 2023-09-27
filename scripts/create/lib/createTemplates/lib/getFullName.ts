@@ -1,11 +1,14 @@
 import path from 'path';
-import { TemplateFileProps } from '../../../types/templates/shared';
 
-interface GetFullNameProps extends Pick<TemplateFileProps, 'pathToDir'| 'genericName'| 'format'>{
+import { TemplateFileProps } from '../../../types/templates/shared';
+import getName from './getName';
+import { CreateDirsThreeProps } from './createDirsThree';
+
+interface GetFullNameProps extends Pick<CreateDirsThreeProps, 'pathToDir' | 'fileName' | 'name'>{
 
 }
 
-export default ({ pathToDir, genericName, format }: GetFullNameProps) => path.resolve(
+export default ({ pathToDir, name, fileName: { format, nameMutator } }: GetFullNameProps) => path.resolve(
     pathToDir,
-    [genericName, format].filter((e) => e !== '').join('.'),
+    getName(nameMutator && name[nameMutator], format),
 );

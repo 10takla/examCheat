@@ -1,0 +1,11 @@
+.CloseElement {
+  position: relative;
+
+  > .minus {
+    cursor: pointer;
+    width: 1.2em;
+    position: absolute;
+    bottom: calc(100% - 0.1em);
+    left: calc(100% - 0.1em);
+  }
+}

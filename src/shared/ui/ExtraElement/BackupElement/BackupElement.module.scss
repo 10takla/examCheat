@@ -1,0 +1,12 @@
+.BackupElement {
+  position: relative;
+
+  > .backup {
+    z-index: 1000;
+    cursor: pointer;
+    width: 1.2em;
+    position: absolute;
+    top: calc(100% - 0.1em);
+    left: calc(100% - 0.1em);
+  }
+}

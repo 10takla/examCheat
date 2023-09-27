@@ -14,10 +14,10 @@ export default (argsValidates: ValidateArg[], isTest?: boolean) => {
     const errors = argsValidates.reduce((all, { checks, baseErrorMessage }, index) => {
         const checksErrors = checks.map((check) => deepCheck(check))
             .filter((errorMessage) => errorMessage !== '')
-            .map((errorMessage) => errorMessage ?? baseErrorMessage);
+            .map((errorMessage) => errorMessage ?? baseErrorMessage) as string[];
         if (checksErrors.length > 0) {
             if (isTest) {
-                all.push(checksErrors);
+                all.push(checksErrors.join('\n'));
             } else {
                 all.push(`Укажите (${index + 1} аргументом)${checksErrors.length === 1 ? ' ' : ':'}${
                     checksErrors.length === 1
@@ -27,7 +27,7 @@ export default (argsValidates: ValidateArg[], isTest?: boolean) => {
             }
         }
         return all as string[];
-    }, []);
+    }, [] as string[]);
 
     if (isTest) {
         return errors;

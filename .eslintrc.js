@@ -3,10 +3,7 @@ module.exports = {
         browser: true,
         es2021: true,
     },
-    extends: [
-        'plugin:react/recommended',
-        'airbnb',
-    ],
+    extends: ['plugin:react/recommended', 'airbnb', 'plugin:storybook/recommended'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 'latest',
@@ -15,6 +12,7 @@ module.exports = {
     plugins: [
         'react',
         '@typescript-eslint',
+        'react-hooks',
     ],
     rules: {
         indent: [2, 4],
@@ -23,10 +21,19 @@ module.exports = {
         'react/jsx-filename-extension': [
             2, { extensions: ['.jsx', '.tsx'] },
         ],
+        'react/jsx-props-no-spreading': 0,
+        'react/function-component-definition': 0,
         'react/require-default-props': 0,
         'react/react-in-jsx-scope': 0,
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'error',
+        'react/no-unused-prop-types': 0,
+        'react/prop-types': 0,
         'no-unused-vars': 0,
         'no-undef': 1,
+        'no-return-assign': 0,
+        'no-param-reassign': 0,
+        'no-underscore-dangle': 0,
         'import/no-unresolved': 'off',
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',

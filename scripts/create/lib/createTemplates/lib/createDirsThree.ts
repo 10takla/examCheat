@@ -4,9 +4,10 @@ import { CreateTemplatesProps } from '../createTemplates/createTemplates';
 import { CreateFileProps } from '../createFile';
 import { TemplateFiles } from '../../../types/templates/files';
 
-export interface CreateDirsThreeProps extends Omit<CreateFileProps, 'relativeFiles'>{
+export interface CreateDirsThreeProps extends Omit<CreateFileProps, 'relativeFiles'> {
 
 }
+
 let filesStructure: { [key in keyof TemplateFiles]?: CreateDirsThreeProps } = {};
 export const createDirsThree = ({
     template, pathToDir, name,
@@ -22,15 +23,22 @@ export const createDirsThree = ({
             }
         });
     } else {
-        const { name: nameTFile, format } = template;
-        const genericName = template.nameMutator ? name[template.nameMutator] : '';
+        const {
+            name: nameTFile,
+            templateFileName,
+            genericNameMutator,
+            ...otherProps
+        } = template;
+        const genericName = genericNameMutator ? name[genericNameMutator] : '';
+
         filesStructure = {
             ...filesStructure,
             [nameTFile]: {
-                format,
+                templateFileName,
                 name,
                 pathToDir,
                 genericName,
+                ...otherProps,
             },
         };
     }

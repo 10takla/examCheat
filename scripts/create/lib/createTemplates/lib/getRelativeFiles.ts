@@ -1,14 +1,14 @@
 import { createDirsThree, CreateDirsThreeProps } from './createDirsThree';
 import getFullName from './getFullName';
-import { TemplateFiles } from '../../../types/templates/files';
 import config from '../../../config/config';
 import { CreateFileProps } from '../createFile';
 import { getRealtivePath } from './getRealtivePath';
+import { TemplateFiles } from '../../../types/templates/files';
 
 type another = { [key in keyof TemplateFiles]?: CreateDirsThreeProps }
 const getRelativeFiles = (tmp: another, currentFile: CreateDirsThreeProps) => (
     Object.entries(tmp).reduce((all, [fileName, relatedFile]) => {
-        if (relatedFile.format === currentFile.format) {
+        if (relatedFile.fileName.format === currentFile.fileName.format) {
             return { ...all };
         }
         return {
@@ -25,9 +25,12 @@ const getRelativeFiles = (tmp: another, currentFile: CreateDirsThreeProps) => (
 export default (tmp: another) => (
     Object.values(tmp)
         .reduce((all, currentFile) => (
-            [...all, {
-                ...currentFile,
-                relativeFiles: getRelativeFiles(tmp, currentFile),
-            }]
-        ), []) as CreateFileProps[]
+            [
+                ...all,
+                {
+                    ...currentFile,
+                    relativeFiles: getRelativeFiles(tmp, currentFile),
+                },
+            ]
+        ), [] as any[]) as CreateFileProps[]
 );

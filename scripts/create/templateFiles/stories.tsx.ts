@@ -1,4 +1,4 @@
-import { type TemplateFileProps } from '../types/templates/shared';
+import { TemplateFileProps } from '../types/templates/shared';
 
 export default ({ pathToDir, relativeFiles }: TemplateFileProps) => {
     const ReactCFN = relativeFiles.tsx;

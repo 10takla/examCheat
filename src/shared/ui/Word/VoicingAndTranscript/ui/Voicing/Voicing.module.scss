@@ -1,0 +1,17 @@
+.Voicing {
+  > .voicingSvg{
+    width: 1em;
+    height: 1em;
+
+    &.active {
+      fill: #00ff04;
+    }
+
+    &.error {
+      background: red;
+      padding: 0.1em;
+      box-sizing: border-box;
+      border-radius: 0.2em;
+    }
+  }
+}

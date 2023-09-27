@@ -1,6 +1,7 @@
 import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import webpack from 'webpack';
 import buildLoaders from './config/build/buildLoaders';
 
 interface BuildEnv {
@@ -30,6 +31,10 @@ export default (env: BuildEnv) => {
             new MiniCssExtractPlugin({
                 filename: 'css/[name].[contenthash:8].css',
                 chunkFilename: 'css/[name].[contenthash:8].css',
+            }),
+            new webpack.DefinePlugin({
+                __IS_DEV__: JSON.stringify(isDev),
+                __API__: JSON.stringify('http://localhost:8000'),
             }),
         ],
         module: {

@@ -1,0 +1,17 @@
+.VoicingAndTranscript {
+  font-size: 1em;
+  background: rgba(255, 165, 0, 0.68);
+  padding: 0.2em;
+  border-radius: 0.8em;
+  height: 100%;
+  aspect-ratio: 1/1;
+
+  > .transcript {
+    text-align: center;
+    font-size: 0.8em;
+  }
+
+  > .voicing {
+    font-size: 2em;
+  }
+}

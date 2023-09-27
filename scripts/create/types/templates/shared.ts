@@ -1,15 +1,18 @@
-import { type Name } from '../args';
-import { type TemplatePack } from './packs';
-import { type TemplateCombine } from './combines';
-import { type FullFormat, type TemplateFiles } from './files';
+import { Name } from '../args';
+import { TemplateFiles, TemplatePreFormat } from './files';
+import { TemplatePack } from './packs';
+import { TemplateCombine } from './combines';
 
-export type Template = TemplatePack & TemplateCombine & TemplateFiles
+export type templateWithDir<E> = {
+    template: E,
+    dirName?: string
+}
 
-export interface TemplateFileProps{
+export interface TemplateFileProps {
     genericName: string
     name: Name
-    format: FullFormat
     pathToDir: string
+    fileName: string
     relativeFiles: {
         [key in keyof TemplateFiles]?: {
             genericName: string,
@@ -19,7 +22,4 @@ export interface TemplateFileProps{
     alias: string
 }
 
-export type templateWithDir<E> = {
-    template: E,
-    dirName?: string
-}
+export type Template = TemplatePack | TemplatePreFormat | TemplateCombine

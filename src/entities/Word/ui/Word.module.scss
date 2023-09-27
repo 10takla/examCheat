@@ -1,0 +1,17 @@
+.Word {
+  padding: 0.8em;
+  column-gap: 0.8em;
+  background: white;
+  width: 100%;
+  min-width: 20em;
+
+  > .voicingAndTranscript {
+    flex: 1;
+  }
+
+  > .translates {
+    flex: 4;
+    align-self: start;
+    background: #00ff04;
+  }
+}

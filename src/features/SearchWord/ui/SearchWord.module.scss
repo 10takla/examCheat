@@ -1,0 +1,17 @@
+.SearchWord {
+  border-radius: 0.5em;
+  background: rgba(255, 0, 0, 0.6);
+  padding: 0.5em;
+  row-gap: 0.8em;
+  align-items: stretch;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 20em;
+
+  > .word {
+
+  }
+
+}
+
+

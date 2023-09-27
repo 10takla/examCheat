@@ -1,14 +1,13 @@
-import { type TemplateFileProps } from '../types/templates/shared';
+import { TemplateFileProps } from '../types/templates/shared';
 
 export default ({ genericName, name }: TemplateFileProps) => {
-    const TN = genericName;
-
-    return `export interface ${name.upper} {
+    const TNConst = `${genericName}Type`;
+    return `export interface ${TNConst} {
 
 }
 
 export interface ${name.upper}Schema {
-    data?: ${name.upper};
+    data?: ${TNConst};
     isLoading: boolean;
     error?: string;
 }`;

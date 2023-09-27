@@ -1,7 +1,5 @@
 import { type Name } from '../args';
 
-import { DeepPartial } from '../shared';
-
 export type TemplateFormat = `${'t' | 'j'}s${'x' | ''}` | 'scss' | 'css'
 
 export type TemplatePreFormat = 'tsx' | 'module' | 'stories' |
@@ -27,10 +25,16 @@ export type FullFormat<
     F extends FilesThree[P] = FilesThree[P]
 > = `${`${P}.` | ''}${F}`
 
+export interface TemplateFile<key extends keyof FilesThree = keyof FilesThree> {
+    templateFileName: FullFormat<key, FilesThree[key]>,
+    name: key,
+    fileName: {
+        nameMutator?: keyof Name,
+        format: FullFormat<key, FilesThree[key]>
+    },
+    genericNameMutator?: keyof Name
+}
+
 export type TemplateFiles = {
-    [key in keyof FilesThree]: {
-        nameMutator?: keyof Name
-        format: `${`${key}.` | ''}${FilesThree[key]}`,
-        name: key
-    }
+    [key in keyof FilesThree]: TemplateFile<key>
 }

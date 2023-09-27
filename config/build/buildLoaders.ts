@@ -22,7 +22,14 @@ export default (isDev: boolean) => {
         ],
         exclude: /node_modules/,
     };
+
+    const svgLoader = {
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+    };
+
     return [
+        svgLoader,
         stylesLoader,
         tsLoader,
     ];

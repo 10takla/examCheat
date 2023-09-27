@@ -7,7 +7,7 @@ export type Name = ReturnType<typeof mutateFirsLetter>
 export interface CLIArgs extends Partial<Record<CLIArgName, any>> {
     template: Template
     pathToDir: string
-    name?: Name
+    name: Name
     isRootDir: boolean
 }
 

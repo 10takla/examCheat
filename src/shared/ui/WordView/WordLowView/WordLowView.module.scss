@@ -1,0 +1,30 @@
+.WordLowView {
+  border-radius: 0.2em;
+  align-items: stretch;
+  height: 2em;
+  $exactBckgColor: rgba(72, 72, 72, 0.72);
+
+  .exclamationPoint {
+    fill: red;
+    height: 100%;
+    background: $exactBckgColor;
+  }
+
+  > .word {
+    width: 100%;
+    background: orange;
+    padding: 0.2em;
+
+    > .wordOnEng {
+
+      cursor: pointer;
+      word-wrap: break-word;
+    }
+
+    &.exact {
+      border: 0.2em solid $exactBckgColor;
+      border-right: none;
+    }
+  }
+
+}

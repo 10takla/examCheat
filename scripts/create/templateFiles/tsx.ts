@@ -1,6 +1,7 @@
 import fs from 'fs';
 import * as process from 'process';
-import { type TemplateFileProps } from '../types/templates/shared';
+
+import { TemplateFileProps } from '../types/templates/shared';
 
 export default ({
     genericName, name, relativeFiles, alias,
@@ -15,7 +16,7 @@ export default ({
 import { memo } from 'react';
 import { classNames } from '${alias}/shared/lib/classNames/classNames';
 ${Style ? `import cls from '${Style.pathTo}';\n` : ''}
-${interfaceConst} ${IPN}Props {
+export ${interfaceConst} ${IPN}Props {
     className?: string
 }
 

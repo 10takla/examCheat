@@ -1,0 +1,15 @@
+.AddMyTranslate {
+
+
+  >.input {
+    background: orange;
+
+    &:focus {
+      background: orange;
+    }
+
+    > .error {
+      background: red;
+    }
+  }
+}

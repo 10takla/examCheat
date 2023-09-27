@@ -1,0 +1,17 @@
+.MyWord {
+  padding: 0.8em;
+  background: white;
+
+  > .wordOnEng {
+    flex: 1.5;
+  }
+
+  > .voicingAndTranscript {
+    flex: 1;
+  }
+
+  > .translates {
+    flex: 6;
+    align-self: start;
+  }
+}

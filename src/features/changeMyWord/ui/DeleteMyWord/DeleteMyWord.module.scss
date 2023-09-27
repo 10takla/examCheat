@@ -1,0 +1,13 @@
+.DeleteMyWOrd {
+
+  > .deleteBtn {
+    font-size: 2em;
+    height: 1em;
+    width: 0;
+    transition: 100ms;
+
+    &.active{
+      width: 1em;
+    }
+  }
+}

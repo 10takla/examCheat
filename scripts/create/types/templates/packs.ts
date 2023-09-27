@@ -1,7 +1,6 @@
 import { templateWithDir } from './shared';
 import { type TemplateCombine, type TemplateCombines } from './combines';
 import { TemplatePreFormat } from './files';
-import { DeepPartial } from '../shared';
 
 export type TemplatePack = 'pc' | 'pa'
 
@@ -11,7 +10,7 @@ type PackThreeRules = {
 
 interface PacksThree extends DeepPartial<PackThreeRules> {
     pc: 'rc' | 'ml' | 'index'
-    pa: 'rc' | 'api' | 'index'
+    pa: 'rc' | 'api' | 'index' | 'types'
 }
 
 export type TemplatePacks = {
