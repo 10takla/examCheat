@@ -4,6 +4,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './App.module.scss';
 import { MainPage } from '@/pages/MainPage/MainPage';
 import { LessonsPage } from '@/pages/LessonsPage/LessonsPage';
+import { MonitorPage } from '@/pages/MonitorPage/MonitorPage';
 
 interface AppProps {
     className?: string
@@ -17,8 +18,9 @@ export const App = memo((props: AppProps) => {
         <div
             className={classNames(cls.App, {}, [className])}
         >
-            <MainPage />
+            {/* <MainPage /> */}
             {/* <LessonsPage /> */}
+            <MonitorPage />
         </div>
     );
 });

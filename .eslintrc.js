@@ -14,6 +14,7 @@ module.exports = {
         '@typescript-eslint',
         'react-hooks',
     ],
+    ignorePatterns: ['**/parser/**'],
     rules: {
         indent: [2, 4],
         'react/jsx-indent': [2, 4],

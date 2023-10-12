@@ -1,13 +1,12 @@
-import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './DifficultyLevel.module.scss';
-import { DictionaryWordType } from '@/widgets/DictionaryWord';
 import Description from '@/shared/ui/Description/Description';
+import { WordType } from '@/entities/Word';
 
 interface DifficultyLevelProps {
     className?: string
-    difficultyLevel: DictionaryWordType['difficultyLevel']
+    difficultyLevel: WordType['difficultyLevel']
 }
 
 export const DifficultyLevel = memo((props: DifficultyLevelProps) => {

@@ -17,4 +17,5 @@ if (code && url) {
         const jsCode = await getCompilerCode(postPath);
         await runParser(jsCode, url);
     })();
+
 }

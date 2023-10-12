@@ -13,9 +13,16 @@ export default async (jsCode: string, url: string) => {
 
     const scriptCompletionPromise = new Promise<void>((resolve) => {
         page.on('console', (message) => {
-            if (message.text() === 'ScriptCompleted') {
+            const text = message.text()
+            if (text === 'ScriptCompleted') {
                 resolve();
             }
+            const rule = new RegExp(`NewPage`)
+            if(rule.test(text)) {
+                const tmp = text.replace(rule, '')
+                console.log(JSON.parse(tmp))
+            }
+
         });
     });
 
