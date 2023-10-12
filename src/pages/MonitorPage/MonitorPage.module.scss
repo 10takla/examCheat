@@ -1,0 +1,11 @@
+.MonitorPage {
+  font-size: 1.3em;
+
+  > .sites{
+    flex-grow: 1;
+    > .site{
+      flex: 1;
+    }
+  }
+
+}
