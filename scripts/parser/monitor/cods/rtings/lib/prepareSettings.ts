@@ -1,6 +1,8 @@
 import $ from "jquery";
+import {getAsyncElement, oneTimeEvent} from "../../../lib/dom";
 
 export default async (settings: object) => {
+    await getAsyncElement(() => $('.table_tool-add-result'))
     const getSetting = (search: string) => {
         return $('.table_tool-add-result').not(".is-selected").filter(function () {
             const text = $(this).children('div:last-child').children('div:last-child').text()
@@ -8,24 +10,17 @@ export default async (settings: object) => {
             return text === search
         })
     }
-    let clicks = 0
-    setTimeout(() => {
-        Object.entries(settings).forEach(([key, {label}]) => {
-            const t = getSetting(label)
-            t.on('click', function () {
-                clicks += 1
+    await Promise.all(
+        Object.entries(settings).map(([key, {label}]) => {
+            const el = getSetting(label)
+            if (!el.length) return
+            return new Promise((resolve) => {
+                oneTimeEvent(
+                    el, 'click', () => {
+                        resolve(null)
+                    }
+                )
             })
-            t.trigger('click')
         })
-    }, 3000)
-
-    await new Promise(resolve => {
-        const interval = setInterval(() => {
-            if (Object.entries(settings).length === clicks) {
-                clearInterval(interval)
-                resolve(null)
-            }
-        }, 200)
-    })
-
+    )
 }

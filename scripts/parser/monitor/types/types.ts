@@ -4,14 +4,16 @@ export type MonitorProps = {
 } & {
     [key in 'contrast' | 'aspectRatio' | 'resolution']: [number, number]
 } & {
-    [key in 'brightness' | 'pixelDensity' | 'diagonalSize' | 'viewAngle' | 'responseTime' | 'price' | 'refreshRate']: number
+    [key in 'brightness' | 'pixelDensity' | 'displaySize' | 'viewAngle' | 'responseTime' | 'price' | 'refreshRate']: number
 }
 
 
-export type SiteOption = {
+export type SiteOptions = {
     [key in keyof MonitorProps]?: MonitorProps[key] extends number | Array<number> ?
         FromTo<MonitorProps[key]> :
         MonitorProps[key] extends string ?
             Array<string>
             : unknown
 }
+
+export type Site = 'rtings' | 'geizhals' | 'displays'

@@ -1,0 +1,1199 @@
+{
+  "displays": [
+    {
+      "image": "https://i.rtings.com/assets/products/Tish1RbB/gigabyte-m28u/design-small.jpg",
+      "name": "Gigabyte M28U",
+      "link": "/monitor/reviews/gigabyte/m28u",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 8,
+        "stars": {
+          "Mixed_Usage": 8,
+          "Office": 8.2,
+          "Gaming": 8.6,
+          "Media_Consumption": 7.5,
+          "Media_Creation": 8.3,
+          "HDR": 6.5
+        }
+      },
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "contrast": [
+        1.228,
+        1
+      ],
+      "refreshRate": 144,
+      "displaySize": 28,
+      "pixelDensity": 160,
+      "brightness": 34
+    },
+    {
+      "image": "https://i.rtings.com/assets/products/jOjL7pIn/gigabyte-m27u/design-small.jpg",
+      "name": "Gigabyte M27U",
+      "link": "/monitor/reviews/gigabyte/m27u",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 19,
+        "stars": {
+          "Mixed_Usage": 8.1,
+          "Office": 8.2,
+          "Gaming": 8.8,
+          "Media_Consumption": 7.6,
+          "Media_Creation": 8.2,
+          "HDR": 6.8
+        }
+      },
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "contrast": [
+        1.072,
+        1
+      ],
+      "refreshRate": 150,
+      "displaySize": 27,
+      "pixelDensity": 162,
+      "brightness": 62
+    },
+    {
+      "image": "https://i.rtings.com/assets/products/prFWQswU/gigabyte-m34wq/design-small.jpg",
+      "name": "Gigabyte M34WQ",
+      "link": "/monitor/reviews/gigabyte/m34wq",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 1,
+        "stars": {
+          "Mixed_Usage": 7.8,
+          "Office": 8,
+          "Gaming": 8.3,
+          "Media_Consumption": 7.4,
+          "Media_Creation": 8,
+          "HDR": 6.4
+        }
+      },
+      "resolution": [
+        3440,
+        1440
+      ],
+      "aspectRatio": [
+        21,
+        9
+      ],
+      "contrast": [
+        1.074,
+        1
+      ],
+      "refreshRate": 144,
+      "displaySize": 34,
+      "pixelDensity": 110,
+      "brightness": 57
+    },
+    {
+      "image": "https://i.rtings.com/assets/products/jmcS9FwQ/acer-nitro-xv282k-kvbmiipruzx/design-small.jpg",
+      "name": "Acer Nitro XV282K KVbmiipruzx",
+      "link": "/monitor/reviews/acer/nitro-xv282k-kvbmiipruzx",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 0,
+        "stars": {
+          "Mixed_Usage": 8.1,
+          "Office": 8.6,
+          "Gaming": 8.6,
+          "Media_Consumption": 7.5,
+          "Media_Creation": 8.4,
+          "HDR": 6.4
+        }
+      },
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "contrast": [
+        1.086,
+        1
+      ],
+      "refreshRate": 144,
+      "displaySize": 28,
+      "pixelDensity": 160,
+      "brightness": 32
+    },
+    {
+      "image": "https://i.rtings.com/assets/products/uUOz2MFK/gigabyte-aorus-fi32u/design-small.jpg",
+      "name": "Gigabyte AORUS FI32U",
+      "link": "/monitor/reviews/gigabyte/aorus-fi32u",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 1,
+        "stars": {
+          "Mixed_Usage": 8.1,
+          "Office": 8.4,
+          "Gaming": 8.5,
+          "Media_Consumption": 7.5,
+          "Media_Creation": 8.3,
+          "HDR": 6.7
+        }
+      },
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "contrast": [
+        1.095,
+        1
+      ],
+      "refreshRate": 144,
+      "displaySize": 32,
+      "pixelDensity": 140,
+      "brightness": 43
+    }
+  ],
+  "geizhals": [
+    {
+      "image": "https://gzhls.at/i/59/31/2975931-s0.webp",
+      "link": "dell-g2724d-210-bhtk-a2975931.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 244.7,
+      "rating": {},
+      "name": "Dell G2724D",
+      "diagonalSize": 27,
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 109,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/76/52/2927652-s0.jpg",
+      "link": "lg-ultragear-27gp850p-b-a2927652.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 308.9,
+      "rating": {
+        "stars": 4.1,
+        "reviews": 10
+      },
+      "name": "LG UltraGear 27GP850P-B",
+      "diagonalSize": 27,
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 109,
+      "brightness": {
+        "min": 400
+      },
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/42/48/2864248-s0.jpg",
+      "link": "dell-alienware-aw3423dwf-210-bfrq-a2864248.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 836.01,
+      "rating": {
+        "stars": 4,
+        "reviews": 2
+      },
+      "name": "Dell Alienware AW3423DWF",
+      "resolution": [
+        3440,
+        1440
+      ],
+      "aspectRatio": [
+        21,
+        9
+      ],
+      "pixelDensity": 109,
+      "brightness": {},
+      "contrast": [
+        0,
+        1
+      ],
+      "responseTime": {
+        "GtG": 0
+      }
+    },
+    {
+      "image": "https://gzhls.at/i/00/68/2740068-s0.jpg",
+      "link": "lg-28mq780-b-a2740068.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 528.76,
+      "rating": {
+        "stars": 5,
+        "reviews": 1
+      },
+      "name": "LG DualUp 28MQ780-B",
+      "resolution": [
+        2560,
+        2880
+      ],
+      "aspectRatio": [
+        16,
+        18
+      ],
+      "pixelDensity": 140,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 5
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/05/60/2850560-s0.webp",
+      "link": "lg-ultragear-oled-27gr95qe-b-a2850560.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 764,
+      "rating": {
+        "stars": 3.8,
+        "reviews": 6
+      },
+      "name": "LG UltraGear OLED 27GR95QE-B",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 111,
+      "brightness": {
+        "min": 1
+      },
+      "contrast": [
+        500,
+        1
+      ],
+      "responseTime": {
+        "GtG": 0
+      }
+    },
+    {
+      "image": "https://gzhls.at/i/85/20/2998520-s0.webp",
+      "link": "samsung-odyssey-neo-g9-g95nc-ls57cg954nuxen-a2998520.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 2369,
+      "rating": {
+        "stars": 2,
+        "reviews": 1
+      },
+      "name": "Samsung Odyssey Neo G9 G95NC",
+      "diagonalSize": 57,
+      "resolution": [
+        7680,
+        2160
+      ],
+      "aspectRatio": [
+        32,
+        9
+      ],
+      "pixelDensity": 140,
+      "brightness": {
+        "min": 2
+      },
+      "contrast": [
+        2.5,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/27/85/3012785-s0.jpg",
+      "link": "acer-nitro-xv5-xv275kp3biipruzx-um-hxxee-305-a3012785.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 782,
+      "rating": {},
+      "name": "Acer Nitro XV5 XV275KP3biipruzx",
+      "diagonalSize": 27,
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 163,
+      "brightness": {
+        "min": 1
+      },
+      "contrast": [
+        200,
+        1
+      ],
+      "responseTime": {
+        "GtG": 2,
+        "MPRT": 1
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/90/89/2949089-s0.webp",
+      "link": "samsung-odyssey-neo-g7-g75nb-2023-ls32bg750npxen-a2949089.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 828,
+      "rating": {},
+      "name": "Samsung Odyssey Neo G7 G75NB (2023)",
+      "diagonalSize": 32,
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 138,
+      "brightness": {
+        "min": 1
+      },
+      "contrast": [
+        0,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/25/38/2912538-s0.jpg",
+      "link": "asus-rog-swift-oled-pg27aqdm-90lm08q0-b01a70-a2912538.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 989,
+      "rating": {
+        "stars": 3,
+        "reviews": 1
+      },
+      "name": "ASUS ROG Swift OLED PG27AQDM",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 111,
+      "brightness": {
+        "min": 1
+      },
+      "contrast": [
+        500,
+        1
+      ],
+      "responseTime": {
+        "GtG": 0
+      }
+    },
+    {
+      "image": "https://gzhls.at/i/52/55/2975255-s0.webp",
+      "link": "asus-rog-swift-pg38uq-90lm08m0-b01170-a2975255.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 1327.28,
+      "rating": {},
+      "name": "ASUS ROG Swift PG38UQ",
+      "diagonalSize": 38,
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 116,
+      "brightness": {
+        "min": 600
+      },
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/53/01/2955301-s0.webp",
+      "link": "aoc-q24g2a-bk-a2955301.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 200.9,
+      "rating": {},
+      "name": "AOC Q24G2A/BK",
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 123,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1,
+        "MPRT": 1
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/92/66/2599266-s0.jpg",
+      "link": "gigabyte-m32u-a2599266.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 707.9,
+      "rating": {
+        "stars": 4.5,
+        "reviews": 6
+      },
+      "name": "GIGABYTE M32U",
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 140,
+      "brightness": {
+        "min": 400
+      },
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "MPRT": 1
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/98/18/2949818-s0.webp",
+      "link": "lg-ultragear-27gr75q-b-a2949818.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 239,
+      "rating": {},
+      "name": "LG UltraGear 27GR75Q-B",
+      "diagonalSize": 27,
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 109,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/94/34/2829434-s0.jpg",
+      "link": "samsung-odyssey-oled-g8-g85sb-ls34bg850suxen-a2829434.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 971.98,
+      "rating": {
+        "stars": 4.4,
+        "reviews": 5
+      },
+      "name": "Samsung Odyssey OLED G8 G85SB",
+      "diagonalSize": 34,
+      "resolution": [
+        3440,
+        1440
+      ],
+      "aspectRatio": [
+        21,
+        9
+      ],
+      "pixelDensity": 110,
+      "brightness": {},
+      "contrast": [
+        0,
+        1
+      ],
+      "responseTime": {
+        "GtG": 0
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/40/02/2694002-s0.jpg",
+      "link": "dell-g3223q-a2694002.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 617.31,
+      "rating": {
+        "stars": 3.2,
+        "reviews": 4
+      },
+      "name": "Dell G3223Q",
+      "diagonalSize": 32,
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 138,
+      "brightness": {
+        "min": 600
+      },
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/29/72/2382972-s0.jpg",
+      "link": "gigabyte-m27q-a2382972.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 310,
+      "rating": {
+        "stars": 4.3,
+        "reviews": 27
+      },
+      "name": "GIGABYTE M27Q",
+      "diagonalSize": 27,
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 109,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "MPRT": 0
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/62/26/2906226-s0.jpg",
+      "link": "msi-g274qpf-qd-9s6-3cc29h-025-a2906226.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 324.9,
+      "rating": {},
+      "name": "MSI G274QPF-QD",
+      "diagonalSize": 27,
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 109,
+      "brightness": {
+        "min": 400
+      },
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/92/77/3019277-s0.webp",
+      "link": "gigabyte-m27u-a3019277.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 592.01,
+      "rating": {},
+      "name": "GIGABYTE M27U",
+      "diagonalSize": 27,
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 163,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "MPRT": 1
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/70/24/2787024-s0.jpg",
+      "link": "lg-ultragear-48gq900-b-a2787024.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 879,
+      "rating": {
+        "stars": 3.3,
+        "reviews": 3
+      },
+      "name": "LG UltraGear 48GQ900-B",
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 93,
+      "brightness": {},
+      "contrast": [
+        500,
+        1
+      ],
+      "responseTime": {
+        "GtG": 0
+      },
+      "viewAngle": 1,
+      "pixelType": "OLED"
+    },
+    {
+      "image": "https://gzhls.at/i/51/26/2905126-s0.jpg",
+      "link": "samsung-odyssey-g7-g70b-ls28bg700epxen-a2905126.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 439.9,
+      "rating": {
+        "stars": 2,
+        "reviews": 3
+      },
+      "name": "Samsung Odyssey G7 G70B",
+      "diagonalSize": 28,
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 157,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/82/75/2748275-s0.jpg",
+      "link": "samsung-odyssey-neo-g8-s32bg850nu-ls32bg850nuxen-a2748275.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 953.1,
+      "rating": {
+        "stars": 1,
+        "reviews": 3
+      },
+      "name": "Samsung Odyssey Neo G8 G85NB",
+      "diagonalSize": 32,
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 138,
+      "brightness": {
+        "min": 1
+      },
+      "contrast": [
+        0,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/35/04/2223504-s0.jpg",
+      "link": "dell-ultrasharp-u2520d-a2223504.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 237.49,
+      "rating": {
+        "stars": 4.3,
+        "reviews": 3
+      },
+      "name": "Dell UltraSharp U2520D",
+      "diagonalSize": 25,
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 117,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 5
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/75/82/2917582-s0.jpg",
+      "link": "lg-ultragear-27gn800p-b-a2917582.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 234.96,
+      "rating": {
+        "stars": 5,
+        "reviews": 5
+      },
+      "name": "LG UltraGear 27GN800P-B",
+      "diagonalSize": 27,
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 109,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/20/61/2962061-s0.webp",
+      "link": "samsung-odyssey-oled-g9-ls49cg954suxen-a2962061.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 1459,
+      "rating": {
+        "stars": 3,
+        "reviews": 2
+      },
+      "name": "Samsung Odyssey OLED G9 G95SC",
+      "diagonalSize": 49,
+      "resolution": [
+        5120,
+        1440
+      ],
+      "aspectRatio": [
+        32,
+        9
+      ],
+      "pixelDensity": 109,
+      "brightness": {},
+      "contrast": [
+        0,
+        1
+      ],
+      "responseTime": {
+        "GtG": 0
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/98/80/2919880-s0.jpg",
+      "link": "dell-ultrasharp-up2720qa-210-bfvt-a2919880.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 1508.67,
+      "rating": {},
+      "name": "Dell UltraSharp UP2720QA",
+      "diagonalSize": 27,
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 163,
+      "brightness": {},
+      "contrast": [
+        1.3,
+        1
+      ],
+      "responseTime": {
+        "GtG": 6
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/70/88/2837088-s0.jpg",
+      "link": "philips-evnia-8000-series-34m2c8600-a2837088.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 899,
+      "rating": {
+        "stars": 4,
+        "reviews": 1
+      },
+      "name": "Philips Evnia 8000 34M2C8600",
+      "diagonalSize": 34,
+      "resolution": [
+        3440,
+        1440
+      ],
+      "aspectRatio": [
+        21,
+        9
+      ],
+      "pixelDensity": 110,
+      "brightness": {
+        "min": 450
+      },
+      "contrast": [
+        0,
+        1
+      ],
+      "responseTime": {
+        "GtG": 0
+      },
+      "viewAngle": 1
+    },
+    {
+      "image": "https://gzhls.at/i/66/69/2956669-s0.webp",
+      "link": "samsung-viewfinity-s8-s27a800ujp-2023-ls27a800ujpxen-a2956669.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 318.44,
+      "rating": {},
+      "name": "Samsung ViewFinity S8 S27A800UJP (2023)",
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 164,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 5
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/46/29/2944629-s0.jpg",
+      "link": "lg-ultrawide-34wp65cp-b-a2944629.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 345.52,
+      "rating": {},
+      "name": "LG UltraWide 34WP65CP-B",
+      "diagonalSize": 34,
+      "resolution": [
+        3440,
+        1440
+      ],
+      "aspectRatio": [
+        21,
+        9
+      ],
+      "pixelDensity": 110,
+      "brightness": {},
+      "contrast": [
+        3,
+        1
+      ],
+      "responseTime": {
+        "GtG": 5
+      },
+      "viewAngle": 1,
+      "pixelType": "VA"
+    },
+    {
+      "image": "https://gzhls.at/i/17/95/2941795-s0.webp",
+      "link": "samsung-essential-monitor-s31c-ls24c310eauxen-ls24c312eauxen-ls24c314eauxen-a2941795.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 81.8,
+      "rating": {},
+      "name": "Samsung Essential Monitor S31C",
+      "diagonalSize": 24,
+      "resolution": [
+        1920,
+        1080
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 92,
+      "brightness": {},
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 5
+      },
+      "viewAngle": 1,
+      "pixelType": "IPS"
+    },
+    {
+      "image": "https://gzhls.at/i/01/35/2850135-s0.jpg",
+      "link": "asus-rog-swift-pg27aqn-90lm0820-b013b0-a2850135.html?hloc=at&hloc=de&hloc=eu&hloc=pl&hloc=uk",
+      "price": 1248.9,
+      "rating": {},
+      "name": "ASUS ROG Swift PG27AQN",
+      "diagonalSize": 27,
+      "resolution": [
+        2560,
+        1440
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "pixelDensity": 109,
+      "brightness": {
+        "min": 600
+      },
+      "contrast": [
+        1,
+        1
+      ],
+      "responseTime": {
+        "GtG": 1
+      },
+      "viewAngle": 1
+    }
+  ],
+  "rtings": [
+    {
+      "image": "https://i.rtings.com/assets/products/Tish1RbB/gigabyte-m28u/design-small.jpg",
+      "name": "Gigabyte M28U",
+      "link": "/monitor/reviews/gigabyte/m28u",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 8,
+        "stars": {
+          "Mixed_Usage": 8,
+          "Office": 8.2,
+          "Gaming": 8.6,
+          "Media_Consumption": 7.5,
+          "Media_Creation": 8.3,
+          "HDR": 6.5
+        }
+      },
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "contrast": [
+        1.228,
+        1
+      ],
+      "refreshRate": 144,
+      "displaySize": 28,
+      "pixelDensity": 160,
+      "brightness": 34
+    },
+    {
+      "image": "https://i.rtings.com/assets/products/jOjL7pIn/gigabyte-m27u/design-small.jpg",
+      "name": "Gigabyte M27U",
+      "link": "/monitor/reviews/gigabyte/m27u",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 19,
+        "stars": {
+          "Mixed_Usage": 8.1,
+          "Office": 8.2,
+          "Gaming": 8.8,
+          "Media_Consumption": 7.6,
+          "Media_Creation": 8.2,
+          "HDR": 6.8
+        }
+      },
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "contrast": [
+        1.072,
+        1
+      ],
+      "refreshRate": 150,
+      "displaySize": 27,
+      "pixelDensity": 162,
+      "brightness": 62
+    },
+    {
+      "image": "https://i.rtings.com/assets/products/prFWQswU/gigabyte-m34wq/design-small.jpg",
+      "name": "Gigabyte M34WQ",
+      "link": "/monitor/reviews/gigabyte/m34wq",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 1,
+        "stars": {
+          "Mixed_Usage": 7.8,
+          "Office": 8,
+          "Gaming": 8.3,
+          "Media_Consumption": 7.4,
+          "Media_Creation": 8,
+          "HDR": 6.4
+        }
+      },
+      "resolution": [
+        3440,
+        1440
+      ],
+      "aspectRatio": [
+        21,
+        9
+      ],
+      "contrast": [
+        1.074,
+        1
+      ],
+      "refreshRate": 144,
+      "displaySize": 34,
+      "pixelDensity": 110,
+      "brightness": 57
+    },
+    {
+      "image": "https://i.rtings.com/assets/products/jmcS9FwQ/acer-nitro-xv282k-kvbmiipruzx/design-small.jpg",
+      "name": "Acer Nitro XV282K KVbmiipruzx",
+      "link": "/monitor/reviews/acer/nitro-xv282k-kvbmiipruzx",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 0,
+        "stars": {
+          "Mixed_Usage": 8.1,
+          "Office": 8.6,
+          "Gaming": 8.6,
+          "Media_Consumption": 7.5,
+          "Media_Creation": 8.4,
+          "HDR": 6.4
+        }
+      },
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "contrast": [
+        1.086,
+        1
+      ],
+      "refreshRate": 144,
+      "displaySize": 28,
+      "pixelDensity": 160,
+      "brightness": 32
+    },
+    {
+      "image": "https://i.rtings.com/assets/products/uUOz2MFK/gigabyte-aorus-fi32u/design-small.jpg",
+      "name": "Gigabyte AORUS FI32U",
+      "link": "/monitor/reviews/gigabyte/aorus-fi32u",
+      "pixelType": "IPS",
+      "rating": {
+        "reviews": 1,
+        "stars": {
+          "Mixed_Usage": 8.1,
+          "Office": 8.4,
+          "Gaming": 8.5,
+          "Media_Consumption": 7.5,
+          "Media_Creation": 8.3,
+          "HDR": 6.7
+        }
+      },
+      "resolution": [
+        3840,
+        2160
+      ],
+      "aspectRatio": [
+        16,
+        9
+      ],
+      "contrast": [
+        1.095,
+        1
+      ],
+      "refreshRate": 144,
+      "displaySize": 32,
+      "pixelDensity": 140,
+      "brightness": 43
+    }
+  ]
+}
