@@ -10,7 +10,7 @@ import React, {
     useState,
 } from 'react';
 import { use } from 'i18next';
-import { InputRef } from '@/shared/ui/Input/Input';
+import { InputRef } from '@/shared/ui/Kit/Input/Input';
 
 export interface KeepFocusProps extends InputHTMLAttributes<InputRef> {
     className?: string

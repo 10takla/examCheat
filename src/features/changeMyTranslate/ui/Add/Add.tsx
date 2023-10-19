@@ -5,7 +5,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Add.module.scss';
 import { AddElement } from '@/shared/ui/ExtraElement/AddElement/AddElement';
 import { usePutMyTranslate } from '@/features/changeMyTranslate/api/addMyTranslate.api';
-import { KeepFocus } from '@/shared/ui/Input/ui/KeepFocus/KeepFocus';
+import { KeepFocus } from '@/shared/ui/Kit/Input/ui/KeepFocus/KeepFocus';
 import useError from '@/features/changeMyTranslate/hooks/useError/useError';
 import Tmp from '@/features/changeMyTranslate/ui/ui/Tmp/Tmp';
 import { MyWordType } from '@/entities/Word/types/word.types';

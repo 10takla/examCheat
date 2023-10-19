@@ -93,6 +93,7 @@
     "axios": "^1.5.1",
     "i18next-browser-languagedetector": "^7.1.0",
     "i18next-http-backend": "^2.2.2",
+    "jquery-ui": "^1.13.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }

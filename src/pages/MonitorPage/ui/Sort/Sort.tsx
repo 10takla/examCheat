@@ -1,50 +1,67 @@
-import { memo, useEffect, useState } from 'react';
-import { HStack } from '@/shared/ui/Stack';
+import { useCallback, useEffect, useState } from 'react';
+import { HStack, VStack } from '@/shared/ui/Stack';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { MonitorProps } from '../../../../../scripts/parser/monitor/types/types';
+import useUpdateState from '@/shared/hooks/useUpdateState';
+import { Range } from '@/pages/MonitorPage/ui/Sort/ui/Range/Range';
+import { Selector } from '@/shared/ui/Kit/Selector/Selector';
 
-export interface SortProps {
+export interface SortProps<O extends string = string> {
     className?: string
-    options: string[]
-    onSort: (option: string, order: boolean) => void
+    options: O[]
+    sort?: { option?: O, isOrder: boolean }
+    onSort?: (t: SortProps['sort']) => void
 }
 
-const Sort = (props: SortProps) => {
+const Sort = <O extends string>(props: SortProps<O>) => {
     const {
         className,
         options,
         onSort,
+        sort,
     } = props;
     const [isOrder, setIsOrder] = useState(false);
-    const [option, setOption] = useState<string | null>(null);
+    const [option, setOption] = useState<O | undefined>();
 
     useEffect(() => {
-        if (option) {
-            onSort(option, isOrder);
+        if (sort) {
+            setOption(sort.option);
+            setIsOrder(sort.isOrder);
+            // onSort?.({ option, isOrder: sort.isOrder });
         }
-    }, [isOrder, onSort, option]);
+    }, [onSort, option, sort]);
+
+    const onOptionChange = useCallback((val: O | undefined) => {
+        setOption(val);
+        onSort?.({ option: val, isOrder });
+    }, [isOrder, onSort]);
+
+    const onIsOrderChange = useCallback((val: boolean) => {
+        setIsOrder(!isOrder);
+        onSort?.({ option, isOrder: val });
+    }, [isOrder, onSort, option, setIsOrder]);
 
     return (
-        <HStack className={classNames('', {}, [className])}>
-            {options.length && (
-                <select onChange={(e) => setOption(e.currentTarget.value as keyof MonitorProps)}>
-                    <option value={undefined}>{null}</option>
-                    {
-                        options.map((t) => (
-                            <option key={t} value={t}>{t}</option>
-                        ))
-                    }
-                </select>
-            )}
-            <button
-                type="button"
-                onClick={() => {
-                    setIsOrder(!isOrder);
-                }}
-            >
-                {isOrder ? '▲' : '▼'}
-            </button>
-        </HStack>
+        <VStack
+            className={classNames('', {}, [className])}
+            gap="8"
+        >
+            <HStack>
+                {options.length && (
+                    <Selector
+                        options={options}
+                        onChange={(e) => onOptionChange(e.currentTarget.value as O | undefined)}
+                        value={option}
+                    />
+                )}
+                <button
+                    type="button"
+                    onClick={() => onIsOrderChange(!isOrder)}
+                >
+                    {isOrder ? '▲' : '▼'}
+                </button>
+            </HStack>
+        </VStack>
+
     );
 };
-export default memo(Sort);
+export default Sort;

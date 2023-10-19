@@ -23,6 +23,7 @@ export ${interfaceConst} ${IPN}Props {
 export const ${CN} = memo((props: ${IPN}Props) => {
     const {
         className,
+        ...otherProps
     } = props;
     const { t } = useTranslation();
     

@@ -5,8 +5,16 @@
 
 .title {
   background: rgba(252, 252, 252, 0.53);
+  flex-wrap: wrap;
+  > span {
+    margin-right: 0.6em;
+  }
 }
 
 .price{
   background: #ff9b9b;
+}
+
+.info {
+  flex-wrap: wrap;
 }

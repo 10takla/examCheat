@@ -1,7 +1,7 @@
 import { HTMLProps } from 'react';
 import { WordType } from '@/entities/Word';
 import { MyWordType } from '@/entities/Word/types/word.types';
-import { InputRef } from '@/shared/ui/Input/Input';
+import { InputRef } from '@/shared/ui/Kit/Input/Input';
 
 export interface ChangeTranslateProps extends ReplaceFields<
     HTMLProps<InputRef>,

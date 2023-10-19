@@ -49,13 +49,15 @@ export interface FlexProps extends DivProps {
     gap?: FlexGap;
     max?: boolean;
 }
+
 export type FlexRef = HTMLDivElement
+
 const Flex = (props: FlexProps, ref: ForwardedRef<FlexRef>) => {
     const {
         className,
         children,
         justify = 'start',
-        align = 'center',
+        align = 'stretch',
         direction = 'row',
         gap,
         max,

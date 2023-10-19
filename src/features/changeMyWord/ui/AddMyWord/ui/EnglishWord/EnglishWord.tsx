@@ -3,9 +3,9 @@ import {
 } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './EnglishWord.module.scss';
-import Input, { InputRef } from '@/shared/ui/Input/Input';
+import Input, { InputRef } from '@/shared/ui/Kit/Input/Input';
 import { VStack } from '@/shared/ui/Stack';
-import { KeepFocus } from '@/shared/ui/Input/ui/KeepFocus/KeepFocus';
+import { KeepFocus } from '@/shared/ui/Kit/Input/ui/KeepFocus/KeepFocus';
 import { SearchWordProps } from '@/features/SearchWord/ui/SearchWord';
 import { SearchWord } from '@/features/SearchWord';
 import { BoundaryElement } from '@/shared/ui/BoundaryWindow/BoundaryWindow';
@@ -63,12 +63,10 @@ export const EnglishWord = memo((props: EnglishWordProps) => {
                     ref={inputRef}
                 />
                 {!!search && isFocus && (
-
                     <SearchWord
                         className={cls.searchWord}
                         {...{ search, onSelectWord }}
                     />
-
                 )}
             </VStack>
         </KeepFocus>

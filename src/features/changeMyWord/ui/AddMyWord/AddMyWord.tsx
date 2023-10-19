@@ -7,7 +7,7 @@ import { AddElement } from '@/shared/ui/ExtraElement/AddElement/AddElement';
 import { useAddMyWord } from '@/features/changeMyWord/api/changeMyWord.api';
 import { WordType } from '@/entities/Word/types/word.types';
 import { EnglishWord } from '@/features/changeMyWord/ui/AddMyWord/ui/EnglishWord/EnglishWord';
-import { InputRef } from '@/shared/ui/Input/Input';
+import { InputRef } from '@/shared/ui/Kit/Input/Input';
 
 interface AddMyWordProps {
     className?: string

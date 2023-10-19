@@ -4,7 +4,7 @@ import {
 } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './MyWord.module.scss';
-import Input from '@/shared/ui/Input/Input';
+import Input from '@/shared/ui/Kit/Input/Input';
 import { Word, WordProps } from '@/entities/Word/ui/Word';
 import DeleteMyWord, { DeleteMyWordProps } from '@/features/changeMyWord/ui/DeleteMyWord/DeleteMyWord';
 import { Translates, TranslatesProps } from '@/entities/Translates/ui/Translates';

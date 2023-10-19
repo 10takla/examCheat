@@ -47,12 +47,10 @@ const Description = (props: DescriptionProps, ref: ForwardedRef<DescriptionRef>)
                     {text}
                 </span>
             )}
-
             {cloneElement(children, {
                 onMouseEnter: () => setIsShow(true),
                 onMouseLeave: () => setIsShow(false),
             })}
-
         </VStack>
     );
 };

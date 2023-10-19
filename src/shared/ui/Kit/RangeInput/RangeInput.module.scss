@@ -1,0 +1,9 @@
+.RangeInput {
+  background: red;
+  position: relative;
+  height: 2em;
+  > .thumb {
+    position: absolute;
+  }
+}
+

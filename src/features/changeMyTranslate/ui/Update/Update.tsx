@@ -13,9 +13,9 @@ import React, {
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Update.module.scss';
 import { usePutMyTranslate } from '@/features/changeMyTranslate/api/addMyTranslate.api';
-import { InputRef } from '@/shared/ui/Input/Input';
+import { InputRef } from '@/shared/ui/Kit/Input/Input';
 import useError from '@/features/changeMyTranslate/hooks/useError/useError';
-import { KeepFocus } from '@/shared/ui/Input/ui/KeepFocus/KeepFocus';
+import { KeepFocus } from '@/shared/ui/Kit/Input/ui/KeepFocus/KeepFocus';
 import { BackupElement } from '@/shared/ui/ExtraElement/BackupElement/BackupElement';
 import { TranslateProps } from '@/shared/ui/Word/Translate/Translate';
 import { MyWordType } from '@/entities/Word/types/word.types';

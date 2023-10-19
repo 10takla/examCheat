@@ -1,9 +1,9 @@
 .Description {
   position: relative;
-  align-items: center;
   cursor: help;
 
   > .text {
+    align-self: center;
     display: block;
     position: absolute;
     background: white;

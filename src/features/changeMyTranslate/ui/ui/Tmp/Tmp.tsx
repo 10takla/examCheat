@@ -1,7 +1,7 @@
 import {
     cloneElement, ForwardedRef, forwardRef, memo, ReactElement, useCallback, useState,
 } from 'react';
-import { InputRef } from '@/shared/ui/Input/Input';
+import { InputRef } from '@/shared/ui/Kit/Input/Input';
 import useError from '@/features/changeMyTranslate/hooks/useError/useError';
 import { ChangeTranslateProps } from '@/features/changeMyTranslate/types/changeMyTranslate.types';
 

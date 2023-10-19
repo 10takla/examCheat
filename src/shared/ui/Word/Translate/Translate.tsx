@@ -3,7 +3,7 @@ import {
 } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Translate.module.scss';
-import Input, { InputProps, InputRef } from '@/shared/ui/Input/Input';
+import Input, { InputProps, InputRef } from '@/shared/ui/Kit/Input/Input';
 import Description from '@/shared/ui/Description/Description';
 
 export interface TranslateProps extends InputProps {
