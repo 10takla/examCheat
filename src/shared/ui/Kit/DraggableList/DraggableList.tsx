@@ -1,9 +1,11 @@
-import React, { ReactNode, useRef, useState } from 'react';
-import DraggableItem from './ui/DraggableItem/DraggableItem';
-import Flex, { FlexProps, FlexRef } from '@/shared/ui/Stack/Flex/Flex';
+import React, {
+    ReactNode, useCallback, useRef, useState,
+} from 'react';
+import Flex, { FlexProps } from '@/shared/ui/Stack/Flex/Flex';
 import cls from './DraggableList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { InBoundaries } from '@/shared/ui/Kit/Draggable/ui/InBoundaries/InBoundaries';
+import { InBoundaries, InBoundariesProps } from '@/shared/ui/Kit/Draggable/ui/InBoundaries/InBoundaries';
+import DraggableItem from '@/shared/ui/Kit/DraggableList/ui/DraggableItem/DraggableItem';
 
 interface DraggableListProps<I> extends Omit<FlexProps, 'children'>{
     className?: string,
@@ -21,6 +23,9 @@ export const DraggableList = <I extends any>(props: DraggableListProps<I>) => {
     } = props;
     const [postItems, setPostItems] = useState(items);
     const listRef = useRef<HTMLDivElement | null>(null);
+    const onInBoundariesDrag = useCallback<InBoundariesProps['onDrag']>((e) => {
+        console.log(e.position);
+    }, []);
 
     return (
         <Flex
@@ -29,17 +34,18 @@ export const DraggableList = <I extends any>(props: DraggableListProps<I>) => {
             {...{ direction, ...otherProps }}
             ref={listRef}
         >
+
             {postItems.map((item, index) => (
                 <InBoundaries
                     rootRef={listRef}
                     key={String(`${index}`)}
                     block={direction}
+                    onDrag={onInBoundariesDrag}
                 >
                     <DraggableItem
                         className={classNames(
                             cls.item,
                         )}
-                        disrection={direction === 'column' ? 'Y' : 'X'}
                         {...{ item, listRef }}
                     >
                         {children(item)}

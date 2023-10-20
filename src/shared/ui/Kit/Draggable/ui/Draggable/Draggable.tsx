@@ -8,10 +8,11 @@ export interface DraggableProps {
     children: ReactElement
     onCheck: (props: object, val: Position) => Position
     block?: 'column' | 'row'
+    onDrag?: (pos: Position) => void
 }
 
 export interface DraggableChildrenProps {
-    onDrag: (e: MouseEvent) => void
+    onDragStart: (e: MouseEvent) => void
     ref: any
 }
 
@@ -20,9 +21,13 @@ const Draggable = (props: DraggableProps, ref: ForwardedRef<HTMLElement>) => {
         children,
         onCheck,
         block,
+        onDrag,
     } = props;
     const childrenRef = useRef<HTMLElement>();
-    useImperativeHandle<HTMLElement, HTMLElement>(ref, () => childrenRef.current);
+    useImperativeHandle<HTMLElement| undefined, HTMLElement | undefined>(
+        ref,
+        () => childrenRef.current,
+    );
 
     const [startPos, setStartPos] = useState<Position['position']>([0, 0]);
 
@@ -39,13 +44,15 @@ const Draggable = (props: DraggableProps, ref: ForwardedRef<HTMLElement>) => {
         setStartPos(tmp);
     }, []);
 
-    const setTranslate = (e: HTMLElement, pos: Position) => {
+    const setTranslate = useCallback((e: HTMLElement, pos: Position) => {
         const y = ['row', 'column'].findIndex((o) => block && o !== block);
         if (y !== -1) {
-            pos.multiplyPos([1, 1].map((o, p) => (p === y ? 0 : 1)));
+            const tmp = [1, 1].map((o, p) => (p === y ? 0 : 1)) as [number, number];
+            pos.multiplyPos(tmp);
         }
         e.style.transform = `translate(${pos.position.map((o) => `${o}px`).join(', ')})`;
-    };
+        onDrag?.(pos);
+    }, [block, onDrag]);
 
     const onMove = useCallback<Required<CursorMoveProps>['onMove']>(({ totalTranslate, currTranslate }) => {
         if (!childrenRef.current) return;
@@ -54,16 +61,16 @@ const Draggable = (props: DraggableProps, ref: ForwardedRef<HTMLElement>) => {
             childrenRef.current!,
             onCheck({ totalTranslate, currTranslate }, val),
         );
-    }, [onCheck, startPos]);
+    }, [onCheck, setTranslate, startPos]);
 
     const [onStart] = useCursorMove({
         onMove,
-        onEnd: ({ totalTranslate }) => {
+        onEnd: () => {
             setStart();
         },
     }, []);
 
-    const onDragStart = useCallback<DraggableChildrenProps['onDrag']>((e) => {
+    const onDragStart = useCallback<DraggableChildrenProps['onDragStart']>((e) => {
         if (!childrenRef.current) return;
         onStart(e);
     }, [onStart]);
@@ -71,7 +78,7 @@ const Draggable = (props: DraggableProps, ref: ForwardedRef<HTMLElement>) => {
     return (
         cloneElement<DraggableChildrenProps>(children, {
             ref: childrenRef,
-            onDrag: onDragStart,
+            onDragStart,
         })
     );
 };

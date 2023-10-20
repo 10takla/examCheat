@@ -4,7 +4,7 @@ import {
 import Draggable, { DraggableProps } from '../Draggable/Draggable';
 import { Position } from '@/shared/lib/kit/position/position';
 
-interface InBoundariesProps extends Pick<DraggableProps, 'block'>{
+export interface InBoundariesProps extends DraggableProps{
     children: ReactElement
     rootRef: MutableRefObject<HTMLElement | null>
 }
@@ -62,9 +62,7 @@ export const InBoundaries = memo((props: InBoundariesProps) => {
                 return o;
             }
             return pop.position[i];
-        });
-
-        // console.log(data);
+        }) as [number, number];
         return new Position(yt);
     }, [rootBound, rootRef, startBound]);
 
