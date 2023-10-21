@@ -22,23 +22,28 @@ const Item = (props: ItemProps, ref: ForwardedRef<FlexRef>) => {
     } = props;
     const [isDrag, setIsDrag] = useState(false);
     return (
-        <Flex
-            {...otherProps}
+        <div
+            className={cls.dragWrapper}
             ref={ref}
-            className={classNames(
-                cls.Item,
-                { [cls.drag]: isDrag },
-                [className],
-            )}
         >
-            <DragSvg
-                className={cls.dragSvg}
-                onMouseDown={(e) => {
-                    onDragStart?.(e as any);
-                }}
-            />
-            {children}
-        </Flex>
+            <Flex
+                {...otherProps}
+                className={classNames(
+                    cls.Item,
+                    { [cls.drag]: isDrag },
+                    [className],
+                )}
+            >
+                <DragSvg
+                    className={cls.dragSvg}
+                    onMouseDown={(e) => {
+                        onDragStart?.(e as any);
+                    }}
+                />
+                {children}
+            </Flex>
+        </div>
+
     );
 };
 

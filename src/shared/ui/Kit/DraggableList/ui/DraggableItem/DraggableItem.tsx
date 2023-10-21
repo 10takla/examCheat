@@ -1,5 +1,5 @@
 import React, {
-    ForwardedRef, forwardRef, MutableRefObject, useCallback,
+    ForwardedRef, forwardRef, MutableRefObject, useCallback, useEffect, useState,
 } from 'react';
 import { FlexProps, FlexRef } from '@/shared/ui/Stack/Flex/Flex';
 import Draggable, { DraggableProps } from '@/shared/ui/Kit/Draggable/ui/Draggable/Draggable';
@@ -11,8 +11,8 @@ export interface DraggableItemProps<I> extends Omit<FlexProps, 'onDragStart'> {
     className?: string
     listRef: MutableRefObject<FlexRef | null>
     onCheckBoundaries?: () => void
-    drag: Pick<DraggableProps, 'onDragStart' | 'onDragEnd'>
-    into: Pick<IntoBoundariesProps, 'nears'>
+    drag: Omit<DraggableProps, 'onCheck' | 'children' >
+    into: Omit<IntoBoundariesProps, 'onCheck' | 'children'>
 }
 const DraggableItem = <I extends any>(props: DraggableItemProps<I>, ref: ForwardedRef<FlexRef>) => {
     const {
@@ -20,33 +20,47 @@ const DraggableItem = <I extends any>(props: DraggableItemProps<I>, ref: Forward
         children,
         listRef,
         drag,
-        into,
+        into: {
+            onDragStart,
+            onDragEnd,
+            onDrag,
+            ...into
+        },
         direction,
         onCheckBoundaries,
         ...otherProps
     } = props;
 
-    const onInBoundariesDrag = useCallback<Required<InBoundariesProps>['onDrag']>((e) => {
-        // console.log(e.position);
-    }, []);
+    const [isDrag, setIsDrag] = useState(false);
 
+    const onPostDragStart = useCallback(() => {
+        setIsDrag(true);
+        onDragStart?.();
+    }, [onDragStart]);
+
+    const onPostDragEnd = useCallback(() => {
+        setIsDrag(false);
+        onDragEnd?.();
+    }, [onDragEnd]);
     return (
         <IntoBoundaries
             {...into}
+            isDrag={isDrag}
+            onDragStart={onPostDragStart}
+            onDragEnd={onPostDragEnd}
             direction={direction}
             rootRef={listRef}
-            onDrag={onInBoundariesDrag}
             ref={ref}
         >
-            {/* <InBoundaries */}
-            {/*    rootRef={listRef} */}
-            {/* > */}
-            <Draggable {...drag}>
-                <Item>
-                    {children}
-                </Item>
-            </Draggable>
-            {/* </InBoundaries> */}
+            <InBoundaries
+                rootRef={listRef}
+            >
+                <Draggable {...drag}>
+                    <Item>
+                        {children}
+                    </Item>
+                </Draggable>
+            </InBoundaries>
         </IntoBoundaries>
     );
 };

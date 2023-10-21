@@ -74,9 +74,9 @@ const InBoundaries = (props: InBoundariesProps, ref: ForwardedRef<FlexRef>) => {
             return pop.position[i];
         }) as [number, number];
         if (onCheck) {
-            return onCheck({ totalTranslate, currTranslate }, new Position(yt));
+            onCheck({ totalTranslate, currTranslate }, new Position(yt));
         }
-        return new Position(yt);
+        pop.multiplyPos([0, 0]).addPos(yt);
     }, [onCheck, rootBound, rootRef, startBound]);
 
     return (

@@ -17,10 +17,11 @@ export interface DraggableChildrenProps {
     onDragStart: (e: MouseEvent) => void
     ref: any
 }
-export interface DraggableProps extends Pick<FlexProps, 'direction'>{
+
+export interface DraggableProps extends Pick<FlexProps, 'direction'> {
     children: ReactElement
-    onCheck?: (props: MoveMeasures, val: Position) => Position
-    onDrag?: (pos: Position) => void
+    onCheck?: (props: MoveMeasures, val: Position) => void
+    onDrag?: () => void
     onDragStart?: () => void
     onDragEnd?: () => void
 }
@@ -35,7 +36,7 @@ const Draggable = (props: DraggableProps, ref: ForwardedRef<HTMLElement>) => {
         onDrag,
     } = props;
     const childrenRef = useRef<HTMLElement>();
-    useImperativeHandle<HTMLElement| undefined, HTMLElement | undefined>(
+    useImperativeHandle<HTMLElement | undefined, HTMLElement | undefined>(
         ref,
         () => childrenRef.current,
     );
@@ -68,17 +69,14 @@ const Draggable = (props: DraggableProps, ref: ForwardedRef<HTMLElement>) => {
     const onMove = useCallback<Required<CursorMoveProps>['onMove']>(({ totalTranslate, currTranslate }) => {
         if (!childrenRef.current) return;
         const val = totalTranslate.addPos(new Position(startPos));
+
         if (onCheck) {
-            setTranslate(
-                childrenRef.current!,
-                onCheck({ totalTranslate, currTranslate }, val),
-            );
-        } else {
-            setTranslate(
-                childrenRef.current!,
-                val,
-            );
+            onCheck({ totalTranslate, currTranslate }, val);
         }
+        setTranslate(
+            childrenRef.current!,
+            val,
+        );
     }, [onCheck, setTranslate, startPos]);
 
     const [onStart] = useCursorMove({

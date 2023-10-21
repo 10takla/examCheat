@@ -17,9 +17,9 @@ export class Position {
         }
     }
 
-    addPos(two: Position): Position {
+    addPos(two: Position | PositionProps): Position {
         const one = this.position;
-        const t = two.position;
+        const t = this.getTwo(two);
         if (one === null || t === null) {
             throw new Error('Invalid input data');
         }
@@ -30,14 +30,16 @@ export class Position {
         return this;
     }
 
+    private getTwo(two: Position | PositionProps) {
+        if (two instanceof Position) {
+            return two.position;
+        }
+        return new Position(two).position;
+    }
+
     multiplyPos(two: Position | PositionProps): Position {
         const one = this.position;
-        let t;
-        if (two instanceof Position) {
-            t = two.position;
-        } else {
-            t = new Position(two).position;
-        }
+        const t = this.getTwo(two);
         if (one === null || t === null) {
             throw new Error('Invalid input data');
         }
@@ -48,9 +50,9 @@ export class Position {
         return this;
     }
 
-    subPos(two: Position): Position {
+    subPos(two: Position | PositionProps): Position {
         const one = this.position;
-        const t = two.position;
+        const t = this.getTwo(two);
         if (one === null || t === null) {
             throw new Error('Invalid input data');
         }
