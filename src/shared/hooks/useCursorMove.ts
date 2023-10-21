@@ -1,9 +1,10 @@
 import { useCallback, useState } from 'react';
 import { Position, PositionCursor } from '@/shared/lib/kit/position/position';
 
+export type MoveMeasures = Record<'totalTranslate' | 'currTranslate', PositionCursor>
 export interface CursorMoveProps {
-    onMove?: (props: Record<'totalTranslate' | 'currTranslate', PositionCursor>) => void
-    onEnd?: (props: Record<'totalTranslate' | 'currTranslate', PositionCursor>) => void
+    onMove?: (props: MoveMeasures) => void
+    onEnd?: (props: MoveMeasures) => void
 }
 export default ({ onMove, onEnd }: CursorMoveProps, deps: any[]) => {
     const [path, setPath] = useState<Position | undefined>();

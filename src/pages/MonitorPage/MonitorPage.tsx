@@ -24,12 +24,12 @@ export const MonitorPage = memo((props: MonitorPageProps) => {
         geizhals: {
             currency: 'EUR',
         },
-        rtings: {
-            currency: 'USD',
-        },
-        displays: {
-            currency: 'USD',
-        },
+        // rtings: {
+        //     currency: 'USD',
+        // },
+        // displays: {
+        //     currency: 'USD',
+        // },
     }), []);
 
     const [sitesMonitors, setSitesMonitors] = useState<Record<Site, MonitorType[]> | {}>({});

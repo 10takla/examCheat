@@ -6,7 +6,7 @@ import cls from './SiteList.module.scss';
 import { VStack } from '@/shared/ui/Stack';
 import { Monitor } from './ui/Monitor/ui/Monitor';
 import { MonitorType } from './ui/Monitor/model/types/monitor.types';
-import Sort, { SortProps } from '../../../Sort/Sort';
+import { SortProps } from '../../../Sort/Sort';
 import { Site } from '../../../../../../../scripts/parser/monitor/types/types';
 import { SortList } from '@/pages/MonitorPage/ui/Sort/SortList';
 

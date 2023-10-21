@@ -1,11 +1,11 @@
 import React, {
-    ReactNode, useCallback, useRef, useState,
+    ReactNode, useEffect, useRef, useState,
 } from 'react';
 import Flex, { FlexProps } from '@/shared/ui/Stack/Flex/Flex';
 import cls from './DraggableList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { InBoundaries, InBoundariesProps } from '@/shared/ui/Kit/Draggable/ui/InBoundaries/InBoundaries';
 import DraggableItem from '@/shared/ui/Kit/DraggableList/ui/DraggableItem/DraggableItem';
+import { IntoBoundariesProps } from '@/shared/ui/Kit/Draggable/ui/IntoBoundaries/IntoBoundaries';
 
 interface DraggableListProps<I> extends Omit<FlexProps, 'children'>{
     className?: string,
@@ -23,9 +23,8 @@ export const DraggableList = <I extends any>(props: DraggableListProps<I>) => {
     } = props;
     const [postItems, setPostItems] = useState(items);
     const listRef = useRef<HTMLDivElement | null>(null);
-    const onInBoundariesDrag = useCallback<InBoundariesProps['onDrag']>((e) => {
-        console.log(e.position);
-    }, []);
+    const [fromIndex, setFromIndex] = useState<number>();
+    const nearsRefs = useRef<IntoBoundariesProps['nears']>([]);
 
     return (
         <Flex
@@ -34,23 +33,28 @@ export const DraggableList = <I extends any>(props: DraggableListProps<I>) => {
             {...{ direction, ...otherProps }}
             ref={listRef}
         >
-
             {postItems.map((item, index) => (
-                <InBoundaries
-                    rootRef={listRef}
+                <DraggableItem
                     key={String(`${index}`)}
-                    block={direction}
-                    onDrag={onInBoundariesDrag}
+                    className={classNames(
+                        cls.item,
+                    )}
+                    ref={(re) => {
+                        nearsRefs.current[index] = re;
+                    }}
+                    drag={{
+                        onDragStart: () => {
+                            setFromIndex(index);
+                        },
+                        onDragEnd: () => setFromIndex(undefined),
+                    }}
+                    into={{
+                        nears: nearsRefs.current.filter((_, i) => i !== fromIndex),
+                    }}
+                    {...{ direction, listRef }}
                 >
-                    <DraggableItem
-                        className={classNames(
-                            cls.item,
-                        )}
-                        {...{ item, listRef }}
-                    >
-                        {children(item)}
-                    </DraggableItem>
-                </InBoundaries>
+                    {children(item)}
+                </DraggableItem>
             ))}
         </Flex>
     );

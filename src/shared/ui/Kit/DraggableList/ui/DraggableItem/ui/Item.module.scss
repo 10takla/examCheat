@@ -1,0 +1,12 @@
+.Item {
+  background: rgba(134, 75, 255, 0.56);
+  padding: 0.3em;
+
+  &.drag{
+    background: red;
+  }
+
+  > .dragSvg{
+    cursor: grab;
+  }
+}
