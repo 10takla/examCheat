@@ -10,9 +10,10 @@ export interface DraggableProps {
     onMove?: (moveInfo: (MoveMeasures & Record<'pos', Position>)) => void
     isReverse?: boolean
     step?: number
+    start: Position
 }
 
-const getTransition = (e: HTMLElement) => {
+export const getTransition = (e: HTMLElement) => {
     const regStr = e.style.transform.match(/-?\d+/g);
     let tmp: Position['position'];
     if (Array.isArray(regStr) && regStr.length !== 2) {
@@ -26,13 +27,8 @@ const getTransition = (e: HTMLElement) => {
 };
 
 export const useDraggable = ({
-    dragRef, direction, onMove, isReverse = false, step = 5,
+    dragRef, direction, onMove, isReverse = false, step = 5, start,
 }: DraggableProps) => {
-    const startPosRef = useRef<Position>();
-    const onStart = useCallback(() => {
-        startPosRef.current = new Position(getTransition(dragRef.current!));
-    }, [dragRef]);
-
     const setTransform = useCallback((pos: Position) => {
         if (dragRef.current) {
             // eslint-disable-next-line no-nested-ternary
@@ -41,13 +37,21 @@ export const useDraggable = ({
             dragRef.current.style.transform = `translate(${v1})`;
         }
     }, [direction, dragRef]);
+    const startPos = useMemo<Position>(() => {
+        console.log(start.position);
+        setTransform(start);
+        return start;
+    }, [start]);
+    const onStart = useCallback(() => {
+        startPos.set(new Position(getTransition(dragRef.current!)));
+    }, [dragRef, startPos]);
 
     const onPostMove = useCallback<Required<CursorMoveProps>['onMove']>(
         ({ total, curr }) => {
-            if (startPosRef.current) {
-                const pos = new Position(total.position).add(startPosRef.current);
+            if (startPos) {
+                const pos = new Position(total.position);
                 onMove?.({ total, curr, pos });
-                if (startPosRef.current) {
+                if (startPos) {
                     setTransform(pos);
                 }
             }
@@ -56,8 +60,8 @@ export const useDraggable = ({
     );
 
     const onPostEnd = useCallback<Required<CursorMoveProps>['onEnd']>(() => {
-        if (isReverse && startPosRef.current) {
-            setTransform(startPosRef.current);
+        if (isReverse && startPos) {
+            setTransform(startPos);
         }
     }, [isReverse, setTransform]);
 
@@ -65,7 +69,7 @@ export const useDraggable = ({
         onMove: onPostMove, onStart, onEnd: onPostEnd, step,
     });
 
-    return { onStartMove, startPosRef };
+    return { onStartMove, startPosRef: startPos };
 };
 
 export interface DragIntersectProps extends DraggableProps {
