@@ -15,11 +15,12 @@ import useUpdateState from '@/shared/hooks/useUpdateState';
 export interface IntoBoundariesProps extends DraggableProps{
     children: ReactElement,
     rootRef: MutableRefObject<HTMLElement | null>,
-    nears: Array<HTMLElement>
-    onInto?: () => {}
-    onDragOver?: (findIndex: number) => void
-    onDragLeave?: () => void
-    isDrag: boolean
+    nears: Array<HTMLElement>,
+    onInto?: () => {},
+    onDragOver?: (findIndex: number) => void,
+    onDragLeave?: () => void,
+    isDrag: boolean,
+    className: string | undefined
 }
 
 const IntoBoundaries = (props: IntoBoundariesProps, ref: ForwardedRef<FlexRef>) => {
@@ -39,37 +40,43 @@ const IntoBoundaries = (props: IntoBoundariesProps, ref: ForwardedRef<FlexRef>) 
         () => childrenRef.current,
     );
     const [postNears] = useUpdateState(nears);
-
-    const postOnCheck = useCallback<Required<DraggableProps>['onCheck']>(({ totalTranslate }, pop) => {
+    const [findIndex, setFindIndex] = useState<number>();
+    useEffect(() => {
+        if (findIndex !== undefined) {
+            if (findIndex !== -1) {
+                onDragOver?.(findIndex);
+            } else {
+                onDragLeave?.();
+            }
+        }
+    }, [findIndex, onDragLeave, onDragOver]);
+    const postOnCheck = useCallback<Required<DraggableProps>['onCheck']>((dat, pop) => {
         if (!postNears.length) {
             return;
         }
-        const findIndex = postNears.findIndex((near, nearI) => {
-            if (near || childrenRef.current) {
-                console.log(near?.getBoundingClientRect())
-                const nearB = near!.getBoundingClientRect();
-                const childrenB = childrenRef.current!.getBoundingClientRect();
-                const tmp: Array<keyof DOMRect>[] = [['left', 'right'], ['top', 'bottom']];
-                return tmp.some((dirs, coorI) => {
-                    const y = dirs.some((dir, dirI) => {
-                        const ch = childrenB[dir] as number;
-                        const nes = dirs.map((dir1) => nearB[dir1])
-                            .map((n, io) => (
-                                [n, ['<', '>'][io], ch].join(' ')
-                            )).join(' && ');
-                        // eslint-disable-next-line no-eval
-                        return eval(nes);
+        setFindIndex(
+            postNears.findIndex((near, nearI) => {
+                if (near || childrenRef.current) {
+                    const nearB = near.getBoundingClientRect();
+                    const childrenB = childrenRef.current!.getBoundingClientRect();
+                    const tmp: Array<keyof DOMRect>[] = [['left', 'right'], ['top', 'bottom']];
+                    return tmp.some((dirs, coorI) => {
+                        const y = dirs.some((dir, dirI) => {
+                            const ch = childrenB[dir] as number;
+                            const nes = dirs.map((dir1) => nearB[dir1])
+                                .map((n, io) => (
+                                    [n, ['<', '>'][io], ch].join(' ')
+                                )).join(' && ');
+                            // eslint-disable-next-line no-eval
+                            return eval(nes);
+                        });
+                        return y;
                     });
-                    return y;
-                });
-            }
-        });
-        if (findIndex !== -1) {
-            onDragOver?.(findIndex);
-        } else {
-            onDragLeave?.()
-        }
-    }, [onDragLeave, onDragOver, postNears]);
+                }
+            }),
+        );
+        onCheck?.(dat, pop);
+    }, [onCheck, postNears]);
 
     return (
         cloneElement(children, {

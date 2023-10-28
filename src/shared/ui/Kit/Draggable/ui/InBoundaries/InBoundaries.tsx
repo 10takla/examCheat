@@ -37,9 +37,6 @@ const InBoundaries = (props: InBoundariesProps, ref: ForwardedRef<FlexRef>) => {
     }, [rootRef]);
 
     const [rootBound, setRootBound] = useState<DOMRect>();
-    useEffect(() => {
-        setRootBound(rootRef.current?.getBoundingClientRect());
-    }, [rootRef]);
 
     const handleResize = useCallback(() => {
         setRootBound(rootRef.current?.getBoundingClientRect());
@@ -52,15 +49,15 @@ const InBoundaries = (props: InBoundariesProps, ref: ForwardedRef<FlexRef>) => {
         };
     }, [handleResize]);
 
-    const onPostCheck = useCallback<Required<DraggableProps>['onCheck']>(({ totalTranslate, currTranslate }, pop) => {
+    const onPostCheck = useCallback<Required<DraggableProps>['onCheck']>(({ total, curr }, pop) => {
         if (!startBound || !rootBound || !rootRef.current || !childrenRef.current) {
-            return pop;
+            return;
         }
         const tmp: Array<keyof DOMRect>[] = [['left', 'right'], ['top', 'bottom']];
         const data = tmp.map((dirs, coorI) => dirs.reduce((all, dir, dirI) => {
             const r = rootBound[dir] as number;
             const s = startBound[dir] as number;
-            const sum = s + totalTranslate.position[coorI];
+            const sum = s + total.position[coorI];
             // eslint-disable-next-line no-eval
             if (eval([sum, ['<', '>'][dirI], r].join(' '))) {
                 return r - s;
@@ -74,9 +71,9 @@ const InBoundaries = (props: InBoundariesProps, ref: ForwardedRef<FlexRef>) => {
             return pop.position[i];
         }) as [number, number];
         if (onCheck) {
-            onCheck({ totalTranslate, currTranslate }, new Position(yt));
+            onCheck({ total, curr }, new Position(yt));
         }
-        pop.multiplyPos([0, 0]).addPos(yt);
+        pop.set(yt);
     }, [onCheck, rootBound, rootRef, startBound]);
 
     return (

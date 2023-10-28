@@ -1,12 +1,11 @@
 import React, {
-    ReactNode, useEffect, useRef, useState,
+    ReactNode, useCallback, useEffect, useRef, useState,
 } from 'react';
 import Flex, { FlexProps } from '@/shared/ui/Stack/Flex/Flex';
 import cls from './DraggableList.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import DraggableItem from '@/shared/ui/Kit/DraggableList/ui/DraggableItem/DraggableItem';
 import { IntoBoundariesProps } from '@/shared/ui/Kit/Draggable/ui/IntoBoundaries/IntoBoundaries';
-import {LogError} from "concurrently";
 
 interface DraggableListProps<I> extends Omit<FlexProps, 'children'>{
     className?: string,
@@ -27,27 +26,62 @@ export const DraggableList = <I extends any>(props: DraggableListProps<I>) => {
     const [fromIndex, setFromIndex] = useState<number>();
     const [toIndex, setToIndex] = useState<number>();
     const nearsRefs = useRef<IntoBoundariesProps['nears']>([]);
-    // useEffect(()=> {
-    //     console.log(fromIndex)
-    // }, [fromIndex])
+    const [startNears, setStartNears] = useState<HTMLElement[]>([]);
     useEffect(() => {
-        if (fromIndex !== undefined && toIndex !== undefined) {
-            const t = postItems.filter((_, i) => i !== fromIndex);
-            const from = postItems.filter((_, i) => i < toIndex && i !== fromIndex);
-            const to = postItems.filter((_, i) => i >= toIndex && i !== fromIndex);
-            // console.log(to.map(o => o.option));
+        setStartNears(nearsRefs.current);
+    }, []);
 
-            const currB = nearsRefs.current[fromIndex]?.getBoundingClientRect()
-            nearsRefs.current.forEach((near, nearI) => {
-                if(nearI >= toIndex && nearI < postItems.length && nearI !== fromIndex){
-                    const val = currB.left - near?.getBoundingClientRect().left
-                    near!.style.transform = `translateX(${val}px)`
-                }
-            })
-            // console.log([...from, postItems[fromIndex], ...to].map(o => o.option));
-            // setPostItems([...from, postItems[fromIndex], ...to]);
+    const onPostDragOver = useCallback((toIndex: number) => {
+        if (fromIndex !== undefined && toIndex !== undefined) {
+            const curr = nearsRefs.current[fromIndex];
+            const currB = curr.getBoundingClientRect();
+            const { left } = nearsRefs.current[toIndex].getBoundingClientRect();
+            // curr.style.transform = `translateX(${left - currB.left}px)`;
+            nearsRefs.current
+                .forEach((near, nearI) => {
+                    const [a, b] = [fromIndex, toIndex].sort();
+                    if (!(nearI >= a && nearI <= b && nearI !== fromIndex)) {
+                        if (nearI !== fromIndex) {
+                            near!.children[0].style.transform = 'none';
+                        }
+                    }
+                    if (nearI >= a && nearI <= b && nearI !== fromIndex) {
+                        // console.log(nearI);
+                        const el = nearsRefs.current[fromIndex - 1]?.getBoundingClientRect().right;
+                        const sub = currB.right - el;
+                        near.children[0].style.transform = `translate(${sub}px)`;
+                    }
+                });
         }
+    }, [fromIndex, toIndex]);
+    const onEnd = useCallback((from: number, to: number) => {
+        nearsRefs.current
+            .forEach((near) => {
+                near.children[0].style.transform = 'none';
+            });
+        if (toIndex === undefined || fromIndex === undefined) return;
+
+        const y = [...postItems];
+        const t = y.splice(fromIndex, 1)[0];
+        y.splice(toIndex, 0, t);
+        console.log(y);
+        setPostItems(y);
+        setFromIndex(undefined);
     }, [fromIndex, postItems, toIndex]);
+
+    const onCheck = useCallback((dat, pop) => {
+        console.log(fromIndex, toIndex);
+        if (fromIndex !== undefined && toIndex !== undefined) {
+            const curr = nearsRefs.current[fromIndex];
+            const el1 = curr.children[0]?.getBoundingClientRect().left;
+            const el2 = nearsRefs.current[toIndex]?.getBoundingClientRect().left;
+            const sub2 = el2 - el1;
+            console.log(sub2);
+            pop.multiplyPos([0, 0]).addPos([sub2, 0]);
+            // curr.children[0].style.transform = `translate(${sub2}px)`;
+        }
+    }, [fromIndex, toIndex]);
+
     return (
         <Flex
             className={classNames(cls.DraggableList, {}, [className])}
@@ -60,19 +94,29 @@ export const DraggableList = <I extends any>(props: DraggableListProps<I>) => {
                     key={String(`${index}`)}
                     className={classNames(
                         cls.item,
+                        {
+                            [cls.drag]: index === fromIndex,
+                        },
                     )}
                     ref={(re) => {
                         nearsRefs.current[index] = re;
                     }}
                     into={{
+                        onCheck,
                         onDragStart: () => {
                             setFromIndex(index);
                         },
-                        onDragEnd: () => setFromIndex(undefined),
-                        onDragOver: (findIndex) => setToIndex(findIndex),
+                        onDragEnd: () => {
+                            onEnd(fromIndex, toIndex);
+                        },
+                        onDragOver: (findIndex) => {
+                            if (findIndex !== fromIndex) {
+                                setToIndex(findIndex);
+                                onPostDragOver(findIndex);
+                            }
+                        },
                         onDragLeave: () => setToIndex(undefined),
-                        nears: nearsRefs.current.filter((_, i) => i !== fromIndex)
-                            .map(el => el?.children),
+                        nears: nearsRefs.current.filter((_, i) => i !== fromIndex),
                     }}
                     {...{ direction, listRef }}
                 >

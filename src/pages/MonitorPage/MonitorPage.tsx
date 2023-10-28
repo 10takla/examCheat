@@ -1,5 +1,5 @@
 import {
-    memo, useCallback, useMemo, useState,
+    memo, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './MonitorPage.module.scss';
@@ -7,9 +7,9 @@ import { HStack, VStack } from '@/shared/ui/Stack';
 import { Currency } from '../../../scripts/parser/monitor/lib/helpers';
 import { Site } from '../../../scripts/parser/monitor/types/types';
 import { MonitorType } from './ui/AsyncSiteList/ui/SiteList/ui/Monitor/model/types/monitor.types';
-import { AsyncSiteList, SiteListProps } from './ui/AsyncSiteList/AsyncSiteList';
-import Sort, { SortProps } from './ui/Sort/Sort';
-import { SiteList } from './ui/AsyncSiteList/ui/SiteList/SiteList';
+import { AsyncSiteList } from './ui/AsyncSiteList/AsyncSiteList';
+import { SiteList, SiteListProps } from './ui/AsyncSiteList/ui/SiteList/SiteList';
+import { Sort } from '@/pages/MonitorPage/ui/Sort/Sort';
 
 export interface MonitorPageProps {
     className?: string
@@ -24,12 +24,12 @@ export const MonitorPage = memo((props: MonitorPageProps) => {
         geizhals: {
             currency: 'EUR',
         },
-        // rtings: {
-        //     currency: 'USD',
-        // },
-        // displays: {
-        //     currency: 'USD',
-        // },
+        rtings: {
+            currency: 'USD',
+        },
+        displays: {
+            currency: 'USD',
+        },
     }), []);
 
     const [sitesMonitors, setSitesMonitors] = useState<Record<Site, MonitorType[]> | {}>({});
@@ -39,9 +39,9 @@ export const MonitorPage = memo((props: MonitorPageProps) => {
     }, []);
 
     const sitesRelsMonitors = useMemo<
-        Record<Site,
-            Array<MonitorType & {relation?: number}>
-        > | {}
+        Partial<Record<Site,
+            Array<MonitorType & { relation?: number }>
+        >>
     >(() => {
         const siteLists = Object.entries(sitesMonitors);
         if (siteLists.length !== 3) {
@@ -82,34 +82,17 @@ export const MonitorPage = memo((props: MonitorPageProps) => {
         }, {});
         return siteRels;
     }, [sitesMonitors]);
-
-    const sortOptions = useMemo(() => {
-        const other: Array<keyof MonitorType> = [
-            'price',
-            'resolution',
-            'pixelDensity',
-            'refreshRate',
-        ];
-        return [
-            'relation',
-            ...other,
-        ];
-    }, []);
-
-    const [sort, setSort] = useState<SiteListProps['sort']>();
-
-    const onSort = useCallback<SortProps['onSort']>((t) => {
-        setSort(t);
-    }, []);
-
+    const [sorts, setSorts] = useState<SiteListProps['sorts']>([]);
     return (
         <VStack
             className={classNames(cls.MonitorPage, {}, [className])}
             align="center"
         >
             <Sort
-                onSort={onSort}
-                options={sortOptions}
+                sorts={sorts}
+                onSort={(s) => {
+                    setSorts(s);
+                }}
             />
             <HStack
                 align="start"
@@ -125,8 +108,8 @@ export const MonitorPage = memo((props: MonitorPageProps) => {
                             {...{ setSites, currency }}
                         >
                             <SiteList
-                                items={sitesRelsMonitors?.[site] ?? []}
-                                {...{ sort, site, sortOptions }}
+                                items={sitesRelsMonitors?.[site as Site] ?? []}
+                                {...{ site, sorts }}
                             />
                         </AsyncSiteList>
                     ))

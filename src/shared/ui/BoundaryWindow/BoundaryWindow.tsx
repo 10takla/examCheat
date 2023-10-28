@@ -9,8 +9,6 @@ import {
     useEffect,
     useRef,
 } from 'react';
-import { transform } from '@babel/core';
-import translate from '@/shared/ui/Word/Translate/Translate';
 
 export interface BoundaryWindowProps {
     children: ReactElement

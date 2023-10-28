@@ -1,67 +1,85 @@
-import { useCallback, useEffect, useState } from 'react';
-import { HStack, VStack } from '@/shared/ui/Stack';
+import { useCallback, useMemo } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import useUpdateState from '@/shared/hooks/useUpdateState';
-import { Range } from '@/pages/MonitorPage/ui/Sort/ui/Range/Range';
-import { Selector } from '@/shared/ui/Kit/Selector/Selector';
+import cls from './Sort.module.scss';
+import { SortsList, SortsListProps } from '@/pages/MonitorPage/ui/Sort/ui/SortsList/SortsList';
+import { VStack } from '@/shared/ui/Stack';
+import { MonitorType } from '@/pages/MonitorPage/ui/AsyncSiteList/ui/SiteList/ui/Monitor/model/types/monitor.types';
 
-export interface SortProps<O extends string = string> {
+export interface SortProps {
     className?: string
-    options: O[]
-    sort?: { option?: O, isOrder: boolean }
-    onSort?: (t: SortProps['sort']) => void
+    sorts?: Required<SortsListProps>['sorts']
+    onSort: (sorts: Required<SortsListProps>['sorts']) => void
 }
 
-const Sort = <O extends string>(props: SortProps<O>) => {
+export const Sort = (props: SortProps) => {
     const {
         className,
-        options,
+        sorts = [],
         onSort,
-        sort,
+        ...otherProps
     } = props;
-    const [isOrder, setIsOrder] = useState(false);
-    const [option, setOption] = useState<O | undefined>();
 
-    useEffect(() => {
-        if (sort) {
-            setOption(sort.option);
-            setIsOrder(sort.isOrder);
-            // onSort?.({ option, isOrder: sort.isOrder });
-        }
-    }, [onSort, option, sort]);
+    const options = useMemo(() => {
+        const other: Array<keyof MonitorType> = [
+            'price',
+            'resolution',
+            'pixelDensity',
+            'refreshRate',
+        ];
+        return [
+            'relation',
+            ...other,
+        ];
+    }, []);
 
-    const onOptionChange = useCallback((val: O | undefined) => {
-        setOption(val);
-        onSort?.({ option: val, isOrder });
-    }, [isOrder, onSort]);
-
-    const onIsOrderChange = useCallback((val: boolean) => {
-        setIsOrder(!isOrder);
-        onSort?.({ option, isOrder: val });
-    }, [isOrder, onSort, option, setIsOrder]);
+    const onSortsList = useCallback((s: Required<SortsListProps>['sorts']) => {
+        onSort(
+            s,
+        );
+    }, [onSort]);
+    // const onRangeSort = useCallback((sorts: Array<Required<SortItemProps>['sort']>) => {
+    //     onSort(
+    //         sorts.reduce((all, sort) => {
+    //             all = getSortedList(all, sort.option, sort.isOrder);
+    //             return all;
+    //         }, items),
+    //     );
+    // }, [items]);
+    // const ranges = useMemo(() => (
+    //     items?.reduce((all, curr) => {
+    //         if (curr instanceof Object) {
+    //             all = {
+    //                 ...all,
+    //                 ...Object.entries(curr).reduce((all2, [key, value]) => {
+    //                     if (typeof value === 'number') {
+    //                         return {
+    //                             ...all2,
+    //                             [key]: {
+    //                                 min: all?.[key]?.min < value ? all[key].min : value,
+    //                                 // t: ((all?.[key]?.max > value ? all[key].max : value) - (all?.[key]?.min < value ? all[key].min : value)) / 2 + (all?.[key]?.min < value ? all[key].min : value),
+    //                                 max: all?.[key]?.max > value ? all[key].max : value,
+    //                             },
+    //                         };
+    //                     }
+    //                     return all2;
+    //                 }, {}),
+    //             };
+    //         }
+    //         return all;
+    //     }, {} as RangesListProps['ranges'])
+    // ), [items]);
 
     return (
-        <VStack
-            className={classNames('', {}, [className])}
-            gap="8"
-        >
-            <HStack>
-                {options.length && (
-                    <Selector
-                        options={options}
-                        onChange={(e) => onOptionChange(e.currentTarget.value as O | undefined)}
-                        value={option}
-                    />
-                )}
-                <button
-                    type="button"
-                    onClick={() => onIsOrderChange(!isOrder)}
-                >
-                    {isOrder ? '▲' : '▼'}
-                </button>
-            </HStack>
+        <VStack className={classNames(cls.Sort, {}, [className])}>
+            <SortsList
+                sorts={sorts}
+                options={options}
+                onSort={onSortsList}
+            />
+            {/* <RangesList */}
+            {/*    ranges={ranges} */}
+            {/*    onSort={onRangeSort} */}
+            {/* /> */}
         </VStack>
-
     );
 };
-export default Sort;

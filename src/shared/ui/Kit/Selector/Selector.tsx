@@ -4,6 +4,7 @@ export interface SelectorProps<O extends string = string> extends HTMLProps<HTML
     className?: string
     options: O[]
     value?: O
+    isNonUndefined?: boolean
 }
 
 export const Selector = <O extends string = string>(props: SelectorProps<O>) => {
@@ -11,6 +12,7 @@ export const Selector = <O extends string = string>(props: SelectorProps<O>) => 
         className,
         options,
         value,
+        isNonUndefined = false,
         ...otherProps
     } = props;
     const postValue = useMemo(() => value, [value]);
@@ -20,7 +22,7 @@ export const Selector = <O extends string = string>(props: SelectorProps<O>) => 
             {...otherProps}
             value={postValue}
         >
-            <option value={undefined}>{null}</option>
+            {!isNonUndefined && <option value={undefined}>{null}</option>}
             {
                 options.map((t) => (
                     <option key={t} value={t}>{t}</option>

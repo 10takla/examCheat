@@ -1,34 +1,47 @@
-import { useCallback, useState } from 'react';
+import {
+    useCallback, useEffect, useMemo, useRef, useState,
+} from 'react';
 import { Position, PositionCursor } from '@/shared/lib/kit/position/position';
 
-export type MoveMeasures = Record<'totalTranslate' | 'currTranslate', PositionCursor>
+export type MoveMeasures = Record<'total' | 'curr', PositionCursor>
 export interface CursorMoveProps {
-    onMove?: (props: MoveMeasures) => void
-    onEnd?: (props: MoveMeasures) => void
+    onStart?: () => void
+    onMove?: (moveInfo: MoveMeasures) => void
+    onEnd?: () => void
+    step?: number
 }
-export default ({ onMove, onEnd }: CursorMoveProps, deps: any[]) => {
-    const [path, setPath] = useState<Position | undefined>();
+export default ({
+    onEnd, onMove, onStart, step,
+}: CursorMoveProps, deps = []) => {
+    const prevPosRef = useMemo(() => new Position([0, 0]), []);
+    const [total, setTotal] = useState<Position>(new Position([0, 0]));
+    const [curr, setCurr] = useState<Position>(new Position([0, 0]));
+    const totalTranslate = useMemo(() => new Position([0, 0]), []);
+    const onActMove = useCallback((ev: MouseEvent) => {
+        const currTranslate = new PositionCursor(ev).sub(prevPosRef);
+        prevPosRef.set(new Position(ev));
+        totalTranslate.add(currTranslate);
+        setTotal(totalTranslate);
+        setCurr(currTranslate);
+        onMove?.({ total: totalTranslate, curr: currTranslate });
+    }, [onMove, prevPosRef, totalTranslate]);
 
-    const onStart = useCallback((e: MouseEvent) => {
-        const startPos = new PositionCursor(e);
-        let prevPos = startPos;
+    const onEndMove = useCallback(() => {
+        document.body.style.userSelect = 'auto';
+        document.removeEventListener('mousemove', onActMove);
+        document.removeEventListener('mouseup', onEndMove);
+        onEnd?.();
+    }, [onEnd, onActMove]);
+
+    const onStartMove = useCallback((e: MouseEvent) => {
         document.body.style.userSelect = 'none';
-        const move = (ev: MouseEvent) => {
-            const totalTranslate = new PositionCursor(ev).subPos(startPos);
-            const currTranslate = new PositionCursor(ev).subPos(prevPos);
-            prevPos = new PositionCursor(ev);
-            onMove?.({ totalTranslate, currTranslate });
-        };
-        document.body.addEventListener('mouseup', (event) => {
-            document.body.style.userSelect = 'auto';
-            document.body.removeEventListener('mousemove', move);
-            const totalTranslate = new PositionCursor(event).subPos(startPos);
-            const currTranslate = new PositionCursor(event).subPos(prevPos);
-            onEnd?.({ totalTranslate, currTranslate });
-        });
-        document.body.addEventListener('mousemove', move);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [onEnd, onMove, ...deps]);
+        document.addEventListener('mousemove', onActMove);
+        document.addEventListener('mouseup', onEndMove);
+        prevPosRef.set(new PositionCursor(e));
+        onStart?.();
+    }, [onActMove, onEndMove, onStart, prevPosRef]);
 
-    return [onStart, path] as [typeof onStart, typeof path];
+    return {
+        onStartMove, onEndMove, total, curr,
+    };
 };

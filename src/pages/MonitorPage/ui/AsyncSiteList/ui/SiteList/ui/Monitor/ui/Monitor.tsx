@@ -52,8 +52,6 @@ export const Monitor = memo((props: MonitorProps) => {
                 onClick={() => {
                     setIsHide(!isHide);
                 }}
-                gap="8"
-                align="start"
                 style={(() => {
                     if (colorIndex !== null) {
                         const [r, g] = getRgbGradient(colorIndex + 1, 5);
@@ -65,11 +63,15 @@ export const Monitor = memo((props: MonitorProps) => {
             >
                 <span className={cls.name}>
                     {`${index + 1}. ${item.name}`}
-
                 </span>
                 {item.price && (
                     <span className={cls.price}>
-                        {`${item.price}р.`}
+                        {`${
+                            ((a) => {
+                                const v1 = String(a[0]).replace(/((?<=\d)(?=(?:\d{3})+$))/, ' $1');
+                                return `${v1}.${a[1] ?? ''}`;
+                            })(String(item.price).split('.'))
+                        }р.`}
                     </span>
                 )}
             </div>

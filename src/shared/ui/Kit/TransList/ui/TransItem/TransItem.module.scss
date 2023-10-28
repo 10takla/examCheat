@@ -1,0 +1,18 @@
+.TransItem {
+  position: relative;
+  > .static, > .dynamic {
+    top: 0;
+    z-index: -1;
+    position: absolute;
+    box-sizing: border-box;
+  }
+  >.dynamic{
+    //left: -10px;
+    //background: #00ff04;
+    position: absolute;
+  }
+  > .children {
+    box-sizing: border-box;
+    transition: 200ms;
+  }
+}

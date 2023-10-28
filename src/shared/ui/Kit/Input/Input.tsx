@@ -5,13 +5,13 @@ import React, {
     memo,
     useCallback,
     useEffect,
-    useImperativeHandle,
-    useMemo,
+    useImperativeHandle, useMemo,
     useRef,
     useState,
 } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Input.module.scss';
+import useUpdateState from '@/shared/hooks/useUpdateState';
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string
@@ -23,7 +23,10 @@ const Input = (props: InputProps, ref: ForwardedRef<InputRef>) => {
     const {
         className,
         value,
+        type,
+        min, max,
         onChange,
+        maxLength,
         isKeepingFocus = false,
         onBlur,
         ...otherProps
@@ -35,16 +38,42 @@ const Input = (props: InputProps, ref: ForwardedRef<InputRef>) => {
         () => inputRef.current,
     );
 
-    const [postValue, setPostValue] = useState(value);
+    const [postValue, setPostValue] = useUpdateState(value);
 
-    useEffect(() => {
-        setPostValue(String(value));
-    }, [value]);
-
-    const onInputChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        setPostValue(event.target.value);
+    const onPostChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+        const chValue = event.target.value;
+        setPostValue(chValue);
         onChange?.(event);
-    }, [onChange]);
+    }, [onChange, setPostValue]);
+
+    const onPostBlur = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
+        const chValue = event.target.value;
+        if (type === 'number') {
+            if (Number(chValue) < Number(min)) {
+                setPostValue(min);
+                event.target.value = min;
+            }
+            if (Number(chValue) > Number(max)) {
+                setPostValue(max);
+                event.target.value = max;
+            }
+        }
+        onBlur?.(event);
+    }, [max, min, onBlur, type, setPostValue]);
+
+    const onInputKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter' && ref) {
+            // @ts-ignore
+            onPostBlur?.(event);
+        }
+    }, [onPostBlur, ref]);
+
+    const postPostValue = useMemo(() => {
+        if (type === 'number') {
+            return Number(postValue).toFixed(maxLength);
+        }
+        return postValue;
+    }, [maxLength, postValue, type]);
 
     const [widthInput, setWidthInput] = useState<number | null>(null);
 
@@ -57,27 +86,21 @@ const Input = (props: InputProps, ref: ForwardedRef<InputRef>) => {
             tempSpan.style.font = window.getComputedStyle(inputElement).getPropertyValue('font');
             tempSpan.style.fontSize = window.getComputedStyle(inputElement).getPropertyValue('font-size');
             tempSpan.style.fontFamily = window.getComputedStyle(inputElement).getPropertyValue('font-family');
-            tempSpan.textContent = String(postValue);
+            tempSpan.textContent = String(postPostValue);
             document.body.appendChild(tempSpan);
             setWidthInput(tempSpan.offsetWidth);
         }
-    }, [postValue]);
-
-    const onInputKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter' && ref) {
-            // @ts-ignore
-            onBlur?.(event);
-        }
-    }, [onBlur, ref]);
+    }, [postPostValue]);
 
     return (
         <input
+            {...{ ...otherProps, onBlur }}
             onKeyUp={onInputKeyDown}
             ref={inputRef}
-            {...{ ...otherProps, onBlur }}
-            onChange={onInputChange}
+            onChange={onPostChange}
+            onBlur={onPostBlur}
             className={classNames(cls.Input, {}, [className])}
-            value={postValue}
+            value={postPostValue}
             data-keepingfocus={isKeepingFocus || undefined}
             // @ts-ignore
             style={{ '--length': `${widthInput}px` }}

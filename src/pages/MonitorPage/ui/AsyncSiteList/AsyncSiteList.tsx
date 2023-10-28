@@ -2,10 +2,10 @@ import { memo, ReactElement, useEffect } from 'react';
 import { api } from '@/shared/api/api';
 import { Currency, getRate } from '../../../../../scripts/parser/monitor/lib/helpers';
 import { Site } from '../../../../../scripts/parser/monitor/types/types';
-import { SortProps } from '../Sort/Sort';
 import { MonitorType } from './ui/SiteList/ui/Monitor/model/types/monitor.types';
+import { SortProps } from '@/pages/MonitorPage/ui/Sort/Sort';
 
-export interface SiteListProps extends Pick<SortProps, 'sort'> {
+export interface AsyncSiteListProps extends Pick<SortProps<any>, 'sort'> {
     className?: string,
     site: Site,
     setSites: (site: Site, items: MonitorType[]) => void,
@@ -13,7 +13,7 @@ export interface SiteListProps extends Pick<SortProps, 'sort'> {
     children: ReactElement
 }
 
-export const AsyncSiteList = memo((props: SiteListProps) => {
+export const AsyncSiteList = memo((props: AsyncSiteListProps) => {
     const {
         site,
         setSites,

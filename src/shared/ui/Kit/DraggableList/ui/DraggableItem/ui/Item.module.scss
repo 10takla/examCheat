@@ -1,16 +1,11 @@
 .Item {
-  background: rgba(134, 75, 255, 0.56);
+  position: relative;
+  background: rgb(212, 191, 255);
   padding: 0.3em;
+  z-index: 10000;
 
-  &.drag{
-    background: red;
-  }
-
-  > .dragSvg{
+  > .dragSvg {
     cursor: grab;
   }
 }
-.dragWrapper{
-  padding: 1em;
-  background: red;
-}
+

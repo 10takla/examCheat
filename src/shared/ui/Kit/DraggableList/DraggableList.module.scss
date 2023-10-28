@@ -1,6 +1,12 @@
 .DraggableList {
-  padding: 2em 0;
+  padding: 2em;
   border: 0.2em solid green;
+
   > .item {
+
+    > .drag{
+      color: red;
+    }
+
   }
 }

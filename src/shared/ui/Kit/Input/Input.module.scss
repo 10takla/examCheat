@@ -6,6 +6,18 @@
   min-width: 1.2em;
   width: calc(var(--length));
   font-size: inherit;
+
+  &[type="number"]::-webkit-inner-spin-button,
+  &[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+
   &:disabled {
     outline: 0;
   }
