@@ -38,7 +38,19 @@ const Input = (props: InputProps, ref: ForwardedRef<InputRef>) => {
         () => inputRef.current,
     );
 
-    const [postValue, setPostValue] = useUpdateState(value);
+    const checkMaxMin = useCallback((v: InputProps['value']) => {
+        if (typeof v === 'number') {
+            if (Number(v) < Number(min)) {
+                return String(min);
+            }
+            if (Number(v) > Number(max)) {
+                return String(max);
+            }
+        }
+        return v as InputProps['value'];
+    }, [max, min]);
+
+    const [postValue, setPostValue] = useUpdateState(() => checkMaxMin(value), [value]);
 
     const onPostChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const chValue = event.target.value;
@@ -48,18 +60,11 @@ const Input = (props: InputProps, ref: ForwardedRef<InputRef>) => {
 
     const onPostBlur = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
         const chValue = event.target.value;
-        if (type === 'number') {
-            if (Number(chValue) < Number(min)) {
-                setPostValue(min);
-                event.target.value = min;
-            }
-            if (Number(chValue) > Number(max)) {
-                setPostValue(max);
-                event.target.value = max;
-            }
-        }
+        const t = checkMaxMin(chValue);
+        setPostValue(t);
+        event.target.value = t;
         onBlur?.(event);
-    }, [max, min, onBlur, type, setPostValue]);
+    }, [checkMaxMin, setPostValue, onBlur]);
 
     const onInputKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter' && ref) {

@@ -90,7 +90,9 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "@types/color-convert": "^2.0.2",
     "axios": "^1.5.1",
+    "color-convert": "^2.0.1",
     "i18next-browser-languagedetector": "^7.1.0",
     "i18next-http-backend": "^2.2.2",
     "jquery-ui": "^1.13.2",

@@ -1,12 +1,14 @@
-import {
-    Dispatch, SetStateAction, useEffect, useState,
-} from 'react';
+import { useEffect, useState } from 'react';
 
-export default <T>(initialState: T, deps: any[] = []) => {
-    const [state, setState] = useState<T>(initialState);
+type PreProc<T> = T extends () => any ? ReturnType<T> : T
+
+export default <T extends any>(initialState: T,
+    deps: any[] = []) => {
+    const preProc = typeof initialState === 'function' ? initialState() : initialState;
+    const [state, setState] = useState<PreProc<T>>(preProc);
     useEffect(() => {
-        setState(initialState);
+        setState(preProc);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initialState, ...deps]);
-    return [state, setState] as [T, Dispatch<SetStateAction<T>>];
+    return [state, setState] as [typeof state, typeof setState];
 };

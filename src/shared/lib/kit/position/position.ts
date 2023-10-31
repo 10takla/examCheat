@@ -11,8 +11,10 @@ export class Position {
         return Math.sqrt(this.position[0] ** 2 + this.position[1] ** 2);
     }
 
-    constructor(data: PositionProps) {
-        if (Array.isArray(data) && data.length === 2) {
+    constructor(data: PositionProps | Position) {
+        if (data instanceof Position) {
+            this.position = data.position;
+        } else if (Array.isArray(data) && data.length === 2) {
             this.position = data;
         } else if ('clientX' in data && 'clientY' in data) {
             this.position = [data.clientX, data.clientY];

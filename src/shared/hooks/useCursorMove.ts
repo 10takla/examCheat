@@ -46,8 +46,9 @@ export default ({
         document.body.style.cursor = 'auto';
         document.removeEventListener('mousemove', onActMove);
         document.removeEventListener('mouseup', onEndMove);
+        totalTranslate.set([0, 0]);
         onEnd?.({ total, curr });
-    }, [onActMove, onEnd, total, curr]);
+    }, [onActMove, totalTranslate, onEnd, total, curr]);
 
     const onStartMove = useCallback((e: MouseEvent) => {
         document.body.style.userSelect = 'none';

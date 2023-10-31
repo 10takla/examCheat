@@ -1,17 +1,33 @@
 .Slider {
-  position: absolute;
-  left: 100px;
-  top: 50px;
-  background: #eeee93;
-  width: 200px;
-  //border: 0.1em solid black;
+  $height: 2.5em;
+  $height_track: $height / 3;
+  $width: 100%;
+  width: $width;
+  height: $height;
+  position: relative;
+
+  > .mainTrack {
+    height: $height_track;
+
+    > .track {
+      height: $height_track;
+    }
+  }
 
   > .thumb {
-    width: 1em;
-    aspect-ratio: 1/1;
-    background: #3fff3f;
-    border-radius: 50%;
-    //border: solid red 0.1em;
-    cursor: grab;
+    width: $height;
+  }
+
+  &.column {
+    width: $height;
+    height: $width;
+
+    > .mainTrack {
+      width: $height_track;
+
+      > .track {
+        width: $height_track;
+      }
+    }
   }
 }

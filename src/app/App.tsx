@@ -3,6 +3,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './App.module.scss';
 import { MonitorPage } from '@/pages/MonitorPage/MonitorPage';
 import { Slider } from '@/test/Slider/Slider';
+import { Range } from '@/test/Range/Range';
 
 interface AppProps {
     className?: string
@@ -19,7 +20,7 @@ export const App = memo((props: AppProps) => {
             {/* <MainPage /> */}
             {/* <LessonsPage /> */}
             {/* <MonitorPage /> */}
-            <Slider />
+            <Range />
         </div>
     );
 });

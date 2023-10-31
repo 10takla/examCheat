@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
-export default (handleResize: (...props: any)=> void) => {
+export default (handleResize: (...props: any)=> void, el: Element | Window = window) => {
     useEffect(() => {
-        window.addEventListener('resize', handleResize);
+        el.addEventListener('resize', handleResize);
         handleResize();
         return () => {
-            window.removeEventListener('resize', handleResize);
+            el.removeEventListener('resize', handleResize);
         };
-    }, [handleResize]);
+    }, [el, handleResize]);
 };

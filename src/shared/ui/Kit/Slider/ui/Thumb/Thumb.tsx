@@ -16,7 +16,7 @@ import useUpdateState from '@/shared/hooks/useUpdateState';
 import { MoveMeasures } from '@/shared/hooks/useCursorMove';
 import { Position } from '@/shared/lib/kit/position/position';
 import useResize from '@/shared/hooks/useResize';
-import { DragIntersectProps, useDraggable, useDragIntersect } from '@/shared/hooks/useDraggable';
+import { DragIntersectProps, useDraggable, useDragIntersect } from '@/shared/hooks/useDraggable/useDraggable';
 
 export interface ThumbProps {
     className?: string

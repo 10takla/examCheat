@@ -1,73 +1,127 @@
-import { useTranslation } from 'react-i18next';
 import {
-    memo, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState,
+    memo, useEffect, useMemo, useRef, useState,
 } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Slider.module.scss';
-import useCursorMove from '@/shared/hooks/useCursorMove';
-import { Position } from '@/shared/lib/kit/position/position';
-import { getTransition, useDraggable } from '@/shared/hooks/useDraggable';
+import Thumb, { ThumbProps } from '@/test/Slider/ui/Thumb/Thumb';
+import Flex, { FlexDirection } from '@/shared/ui/Stack/Flex/Flex';
+import useUpdateState from '@/shared/hooks/useUpdateState';
 import useMemoRef from '@/shared/hooks/useMemoRef';
+import useResize from '@/shared/hooks/useResize';
 
-export interface SliderProps {
+import { Track } from '@/test/Slider/ui/Track/Track';
+import { SIDES } from '@/test/Slider/const/const';
+import { HStack } from '@/shared/ui/Stack';
+import { MainTrack } from '@/test/Slider/ui/MainTrack/MainTrack';
+
+export interface SliderProps extends Partial<Pick<ThumbProps, 'direction'>> {
     className?: string
-    value: number
-    min: number
-    max: number
-    direction?: 'Y' | 'X'
+    values: Array<ThumbProps['value']>
+    onChange?: (values: SliderProps['values']) => void
+    min?: number
+    max?: number
+    step?: number
 }
 
 export const Slider = memo((props: SliderProps) => {
     const {
         className,
-        value = 20,
+        values = [0, 100],
         min = 0,
         max = 100,
+        step = (max - min) / 20,
         direction = 'X',
+        onChange,
         ...otherProps
     } = props;
     const length = max - min;
-    const step = length / 20;
     const sliderRef = useRef<HTMLDivElement | null>(null);
-    const thumbRef = useRef<HTMLDivElement | null>(null);
-    const factor = useRef(0);
-    // eslint-disable-next-line max-len
-    useImperativeHandle(factor, () => (sliderRef.current ? sliderRef.current.offsetWidth - thumbRef.current?.offsetWidth : 0) / length);
-    const stepSlider = useMemoRef<number>(() => factor.current * step, [factor.current]);
+    const thumbsRef = useRef<ThumbProps['thumbsRef']['current']>([]);
 
-    const start = useMemoRef<Position>(() => (
-        new Position([factor.current * value, 0])
-    ), [factor.current]);
-    const startPos = useMemoRef(() => getTransition(thumbRef.current ? thumbRef.current : [0, 0]), [thumbRef.current]);
-    console.log(startPos);
-    const { onStartMove } = useDraggable({
-        dragRef: thumbRef,
-        step: stepSlider,
-        direction,
-        start,
-        onMove: ({ pos, curr }) => {
-            const sliderB = sliderRef.current!.getBoundingClientRect();
-            const thumbB = thumbRef.current!.getBoundingClientRect();
-
-            if (thumbB.left + curr.position[0] <= sliderB.left) {
-                pos.set([0, 0]);
+    const sortedValues = useMemo(() => {
+        const sortedArray = [...values]; // Создаем копию массива
+        return sortedArray.sort((a, b) => {
+            if (a > b) {
+                return 1;
             }
-            getTransition(thumbRef.current!);
-        },
-    });
+            if (a < b) {
+                return -1;
+            }
+            return 0;
+        });
+    }, [values]);
+
+    const sortedThumbs = useMemoRef(() => {
+        const t = thumbsRef.current.sort((a, b) => {
+            const aL = a?.getBoundingClientRect()[SIDES[direction].left];
+            const bL = b?.getBoundingClientRect()[SIDES[direction].left];
+            if (aL && bL) {
+                if (aL > bL) {
+                    return 1;
+                }
+                if (aL < bL) {
+                    return -1;
+                }
+            }
+            return 0;
+        });
+        return [...t];
+    }, [sortedValues, thumbsRef.current]);
+    const data = useMemoRef(() => sortedThumbs.length, [sortedThumbs]);
+
     return (
-        <div
-            className={classNames(cls.Slider, {}, [className])}
+        <Flex
+            className={classNames(cls.Slider, { [cls.column]: direction === 'Y' }, [className])}
+            align="center"
+            direction={{ X: 'row', Y: 'column' }[direction] as FlexDirection}
             ref={sliderRef}
         >
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
-            <div
-                className={cls.thumb}
-                ref={thumbRef}
-                onMouseDown={(e: any) => {
-                    onStartMove(e);
-                }}
-            />
-        </div>
+            <MainTrack
+                className={cls.mainTrack}
+                values={values}
+                direction={direction}
+                sliderRef={sliderRef}
+                sortedThumbs={sortedThumbs}
+            >
+                {data > 1 && sortedThumbs.length
+                    && Array(values.length - 1).fill(1).map((_, i) => (
+                        <Track
+                            className={classNames(cls.track, { [cls.column]: direction === 'Y' }, [className])}
+                            key={String(`${i}`)}
+                            thumbsRef={sortedThumbs}
+                            firstI={i}
+                            secondI={i + 1}
+                            firstVal={values[i]}
+                            secondVal={values[i + 1]}
+                            direction={direction}
+                        />
+                    ))}
+            </MainTrack>
+            {values.map((value, i) => (
+                <Thumb
+                    key={String(`${i}`)}
+                    ref={(re) => {
+                        thumbsRef.current[i] = re;
+                    }}
+                    className={cls.thumb}
+                    onChange={(val) => {
+                        onChange?.(
+                            values.map((o, k) => (
+                                k === i ? val + min : o
+                            )),
+                        );
+                    }}
+                    value={value - min}
+                    thumbsRef={thumbsRef}
+                    {...{
+                        length,
+                        sliderRef,
+                        direction,
+                        step,
+                    }}
+                />
+            ))}
+        </Flex>
+
     );
 });
