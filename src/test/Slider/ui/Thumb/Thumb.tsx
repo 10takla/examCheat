@@ -64,12 +64,19 @@ const Thumb = (props: ThumbProps, ref: ForwardedRef<HTMLDivElement | null>) => {
         )))
     ), [direction, factor, postValue]);
 
+    const intoRefs = useMemoRef(() => [sliderRef.current], [sliderRef.current]);
+
+    useEffect(() => {
+        // console.log([sliderRef.current]);
+    }, [sliderRef]);
+
     const { onStartMove, startPos } = useDraggable({
         dragRef: thumbRef,
         step: stepSlider,
         direction,
         start,
-        overLimitRefs: thumbsRef,
+        intoLimitsRef: [sliderRef.current],
+        // overLimitRefs: thumbsRef,
         onMove: (moveInfo) => {
             const postMoveInfo = [
                 [

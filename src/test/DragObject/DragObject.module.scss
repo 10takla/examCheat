@@ -1,0 +1,12 @@
+.DragObject {
+  >.active, .static{
+    width: 100px;
+    aspect-ratio: 1/1;
+  }
+  >.active{
+    background: #eeee93;
+  }
+  >.static {
+    background: red;
+  }
+}

@@ -16,7 +16,7 @@ export const Range = memo((props: RangeProps) => {
         className,
         ...otherProps
     } = props;
-    const [values, setValues] = useState([0, 50, 70, 100]);
+    const [values, setValues] = useState([0, 50]);
     const minMax = useMemo(() => [values[0], values[values.length - 1]], []);
     return (
         <VStack className={classNames(cls.Range, {}, [className])}>
