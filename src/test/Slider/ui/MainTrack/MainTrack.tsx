@@ -4,7 +4,7 @@ import cls from './MainTrack.module.scss';
 import Flex, { FlexDirection } from '@/shared/ui/Stack/Flex/Flex';
 import { ThumbProps } from '@/test/Slider/ui/Thumb/Thumb';
 import { SliderProps } from '@/test/Slider/Slider';
-import { SIDES } from '@/test/Slider/const/const';
+import { SIDES } from '@/shared/const/translate';
 
 export interface MainTrackProps extends Pick<ThumbProps, 'direction' | 'sliderRef'>, Pick<SliderProps, 'values'> {
     className?: string

@@ -1,5 +1,8 @@
 // eslint-disable-next-line max-classes-per-file
-type Point2D = [number, number] | number[];
+import Side from '@/shared/lib/kit/direction/side';
+import { Direction } from '@/shared/lib/kit/direction/direction';
+
+export type Point2D = [number, number] | number[];
 type ClientCoords = Record<'clientX' | 'clientY', number>;
 type Coords = Record<'x' | 'y', number>;
 type PositionProps = Point2D | ClientCoords
@@ -7,8 +10,20 @@ type PositionProps = Point2D | ClientCoords
 export class Position {
     public position: Point2D = [0, 0];
 
+    get x() {
+        return this.position[0];
+    }
+
+    get y() {
+        return this.position[1];
+    }
+
     get length(): number {
         return Math.sqrt(this.position[0] ** 2 + this.position[1] ** 2);
+    }
+
+    get new() {
+        return new Position(this.position);
     }
 
     constructor(data: PositionProps | Position) {
@@ -30,10 +45,21 @@ export class Position {
         return new Position(two).position;
     }
 
-    set(two: Position | PositionProps): Position {
-        const t = this.getTwo(two);
+    // setSide(side: Direction['side'], value: number) {
+    //     console.log(value);
+    //     const { dirI } = new Direction(side);
+    //     this.position[dirI] = value;
+    // }
+
+    set(newPos: Position | PositionProps | [Side]): Position {
+        const t = this.getTwo(newPos);
         if (t === null) {
             throw new Error('Invalid input data');
+        }
+        if (newPos instanceof Position) {
+            this.position = newPos.position;
+        } else {
+            this.position = new Position(newPos).position;
         }
         this.position = t;
         return this;

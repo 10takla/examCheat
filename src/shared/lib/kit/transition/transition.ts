@@ -1,14 +1,15 @@
 import { MutableRefObject, useCallback } from 'react';
 import { Position, PositionCursor } from '@/shared/lib/kit/position/position';
+import intoBoundaries from '@/shared/hooks/useDraggable/handlers/intoBoundaries';
+import { Direction } from '@/shared/lib/kit/direction/direction';
+import Rectangle from '@/shared/lib/kit/transition/Rectangle';
 
 type Ref<T> = T | MutableRefObject<T | null>
 
 export class Transition {
     public object: HTMLElement;
 
-    private overLimitsObjs: HTMLElement[] = [];
-
-    private intoLimitObj: HTMLElement[] = [];
+    public prevPos: Position = new Position([0, 0]);
 
     get position(): Position {
         const objB = this.object.getBoundingClientRect();
@@ -45,56 +46,19 @@ export class Transition {
 
     constructor(
         ref: Ref<HTMLElement>,
-        {
-            overLimitsRef = [],
-            intoLimitsRef = [],
-        }: Partial<Record<'overLimitsRef' | 'intoLimitsRef', Ref<HTMLElement[]>>>,
     ) {
         this.object = this.checkRef(ref);
+        this.savePrevPos();
     }
 
-    setTranslate(pos: Position, direction?: 'X' | 'Y') {
-        const v = pos.sub(this.startPos);
-        // console.log(v.position);
-        // eslint-disable-next-line no-nested-ternary
-        const extraP = direction === 'X' ? [1, 0] : direction === 'Y' ? [0, 1] : [1, 1];
-        const v1 = v.multiply(extraP).position.map((o) => `${o}px`).join(', ');
+    savePrevPos() {
+        this.prevPos = this.position;
+    }
+
+    setTranslate(pos: Position) {
+        const newPos = new Position(pos);
+        const v = newPos.sub(this.startPos);
+        const v1 = v.position.map((o) => `${o}px`).join(', ');
         this.object.style.transform = `translate(${v1})`;
-    }
-
-    addTranslate(vector: Position) {
-        this.setTranslate(this.position.add(vector));
-        console.log(this.position.add(vector).position);
-    }
-
-    private dirs: Record<'X' | 'Y', Record<'side' | 'antiSide' | 'len', keyof DOMRect>> = {
-        X: { side: 'left', antiSide: 'right', len: 'width' },
-        Y: { side: 'top', antiSide: 'bottom', len: 'height' },
-    };
-
-    private checkLimits() {
-        const objB = this.object.getBoundingClientRect();
-        return this.overLimitsObjs?.map((limitEl) => {
-            const limitB = limitEl.getBoundingClientRect();
-            const intersections = Object.values(this.dirs).reduce((allSides, sides) => {
-                const intersectionSide = [[sides.side, '<'], [sides.antiSide, '>']].reduce((all, [curr, compare]) => {
-                    const a = objB[curr as keyof DOMRect];
-                    const b = limitB[curr as keyof DOMRect];
-                    const condition = [a, compare, b].join(' ');
-                    // console.log(condition);
-                    // eslint-disable-next-line no-eval
-                    if (eval(condition)) {
-                        // console.log(curr);
-                        all = curr;
-                    }
-                    return all;
-                }, null as string | null);
-                if (intersectionSide) {
-                    allSides.push(intersectionSide);
-                }
-                return allSides;
-            }, [] as string[]);
-            return intersections;
-        });
     }
 }

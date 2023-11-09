@@ -1,12 +1,21 @@
 .DragObject {
+  background: #ad93ee;
+  height: 700px;
+  width: 800px;
+
+
   >.active, .static{
     width: 100px;
+    height: 100px;
     aspect-ratio: 1/1;
   }
   >.active{
     background: #eeee93;
   }
   >.static {
+    transform: translate(250px, 350px);
+    width: 200px;
+    height: 400px;
     background: red;
   }
 }

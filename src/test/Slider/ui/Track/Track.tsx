@@ -4,7 +4,7 @@ import cls from './Track.module.scss';
 import { ThumbProps } from '@/test/Slider/ui/Thumb/Thumb';
 import useMemoRef from '@/shared/hooks/useMemoRef';
 import getRgbGradient from '@/shared/lib/getRgbGradient/getRgbGradient';
-import { SIDES } from '@/test/Slider/const/const';
+import { SIDES } from '@/shared/const/translate';
 import useUpdateState from '@/shared/hooks/useUpdateState';
 
 export interface TrackProps extends Pick<ThumbProps, 'direction'> {

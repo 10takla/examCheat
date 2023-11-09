@@ -10,7 +10,7 @@ import useMemoRef from '@/shared/hooks/useMemoRef';
 import useResize from '@/shared/hooks/useResize';
 
 import { Track } from '@/test/Slider/ui/Track/Track';
-import { SIDES } from '@/test/Slider/const/const';
+import { SIDES } from '@/shared/const/translate';
 import { HStack } from '@/shared/ui/Stack';
 import { MainTrack } from '@/test/Slider/ui/MainTrack/MainTrack';
 

@@ -1,9 +1,7 @@
-import {
-    useCallback, useEffect, useMemo, useRef, useState,
-} from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Position, PositionCursor } from '@/shared/lib/kit/position/position';
 
-export type MoveMeasures = Record<'total' | 'curr', PositionCursor>
+export type MoveMeasures = Record<'totalOffset' | 'currOffset', PositionCursor>
 
 export interface CursorMoveProps {
     onStart?: (moveInfo: MoveMeasures) => void
@@ -13,7 +11,7 @@ export interface CursorMoveProps {
 }
 
 export default ({
-    onEnd, onMove, onStart, step,
+    onEnd, onMove, onStart, step = 1,
 }: CursorMoveProps, deps = []) => {
     const prevPosRef = useMemo(() => new Position([0, 0]), []);
     const [total, setTotal] = useState<Position>(new Position([0, 0]));
@@ -23,21 +21,27 @@ export default ({
     const onActMove = useCallback((ev: MouseEvent) => {
         const currTranslate = new PositionCursor(ev).sub(prevPosRef);
         prevPosRef.set(new Position(ev));
-        totalTranslate.add(currTranslate);
-        if (step) {
-            stack.add(currTranslate);
-            const func1 = (o: number) => {
-                const v = Math.floor(Math.abs(o) / step);
-                return Math.sign(o) * v * step;
-            };
-            if (stack.position.some((o) => Math.abs(o) > step)) {
-                const v = totalTranslate.position.map((o) => func1(o));
-                const v2 = stack.position.map((o) => func1(o));
-                onMove?.({ total: new Position(v), curr: new Position(v2) });
-                stack.set([0, 0]);
+        stack.add(currTranslate);
+        const newStack = stack.position;
+        const stepsNs = [0, 0];
+        stack.position.forEach((xY, i) => {
+            if (Math.abs(xY) >= step) {
+                const stepsN = Math.floor(Math.abs(xY) / step);
+                const steps = Math.sign(xY) * step * stepsN;
+                const residue = xY % steps;
+                stepsNs[i] = steps;
+                newStack[i] = residue;
+            } else {
+                newStack[i] = xY;
             }
-        } else {
-            onMove?.({ total: totalTranslate, curr: currTranslate });
+        });
+        stack.set(newStack);
+        if (stepsNs.some((o) => o !== 0)) {
+            totalTranslate.add(stepsNs);
+            onMove?.({
+                totalOffset: new Position(totalTranslate),
+                currOffset: new Position(stepsNs),
+            });
         }
     }, [onMove, prevPosRef, stack, step, totalTranslate]);
 
@@ -47,7 +51,8 @@ export default ({
         document.removeEventListener('mousemove', onActMove);
         document.removeEventListener('mouseup', onEndMove);
         totalTranslate.set([0, 0]);
-        onEnd?.({ total, curr });
+        stack.set([0, 0]);
+        onEnd?.({ totalOffset: total, currOffset: curr });
     }, [onActMove, totalTranslate, onEnd, total, curr]);
 
     const onStartMove = useCallback((e: MouseEvent) => {
@@ -56,7 +61,7 @@ export default ({
         document.addEventListener('mousemove', onActMove);
         document.addEventListener('mouseup', onEndMove);
         prevPosRef.set(new PositionCursor(e));
-        onStart?.({ total, curr });
+        onStart?.({ totalOffset: total, currOffset: curr });
     }, [curr, onActMove, onEndMove, onStart, prevPosRef, total]);
 
     return {
