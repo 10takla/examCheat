@@ -11,7 +11,7 @@ import {
     useState,
 } from 'react';
 import { DraggableProps } from '../Draggable/Draggable';
-import { Position } from '@/shared/lib/kit/position/position';
+import { Vector } from '@/shared/lib/kit/position/vector';
 import { FlexRef } from '@/shared/ui/Stack/Flex/Flex';
 
 export interface InBoundariesProps extends DraggableProps {
@@ -71,7 +71,7 @@ const InBoundaries = (props: InBoundariesProps, ref: ForwardedRef<FlexRef>) => {
             return pop.position[i];
         }) as [number, number];
         if (onCheck) {
-            onCheck({ total, curr }, new Position(yt));
+            onCheck({ total, curr }, new Vector(yt));
         }
         pop.set(yt);
     }, [onCheck, rootBound, rootRef, startBound]);

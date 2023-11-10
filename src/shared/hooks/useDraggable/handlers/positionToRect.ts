@@ -1,6 +1,6 @@
-import { Position } from '@/shared/lib/kit/position/position';
+import { Vector } from '@/shared/lib/kit/position/vector';
 
-export default (pos: Position, object: HTMLElement): DOMRect => <DOMRect>({
+export default (pos: Vector, object: HTMLElement): DOMRect => <DOMRect>({
     left: pos.x,
     top: pos.y,
     x: pos.x,

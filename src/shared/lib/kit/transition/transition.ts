@@ -1,5 +1,5 @@
 import { MutableRefObject, useCallback } from 'react';
-import { Position, PositionCursor } from '@/shared/lib/kit/position/position';
+import { Vector, PositionCursor } from '@/shared/lib/kit/position/vector';
 import intoBoundaries from '@/shared/hooks/useDraggable/handlers/intoBoundaries';
 import { Direction } from '@/shared/lib/kit/direction/direction';
 import Rectangle from '@/shared/lib/kit/transition/Rectangle';
@@ -9,27 +9,27 @@ type Ref<T> = T | MutableRefObject<T | null>
 export class Transition {
     public object: HTMLElement;
 
-    public prevPos: Position = new Position([0, 0]);
+    public prevPos: Vector = new Vector([0, 0]);
 
-    get position(): Position {
+    get position(): Vector {
         const objB = this.object.getBoundingClientRect();
-        return new Position([objB.left, objB.top]);
+        return new Vector([objB.left, objB.top]);
     }
 
-    get translate(): Position {
+    get translate(): Vector {
         const regStr = this.object.style.transform.match(/-?\d+/g);
-        let tmp: Position['position'];
+        let tmp: Vector['position'];
         if (Array.isArray(regStr) && regStr.length !== 2) {
             tmp = [Number(regStr[0]), 0];
         } else if (!regStr) {
             tmp = [0, 0];
         } else {
-            tmp = regStr.map((o) => Number(o)) as Position['position'];
+            tmp = regStr.map((o) => Number(o)) as Vector['position'];
         }
-        return new Position(tmp);
+        return new Vector(tmp);
     }
 
-    get startPos(): Position {
+    get startPos(): Vector {
         return this.position.sub(this.translate);
     }
 
@@ -55,8 +55,8 @@ export class Transition {
         this.prevPos = this.position;
     }
 
-    setTranslate(pos: Position) {
-        const newPos = new Position(pos);
+    setTranslate(pos: Vector) {
+        const newPos = new Vector(pos);
         const v = newPos.sub(this.startPos);
         const v1 = v.position.map((o) => `${o}px`).join(', ');
         this.object.style.transform = `translate(${v1})`;

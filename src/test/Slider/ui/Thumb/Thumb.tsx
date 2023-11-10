@@ -5,7 +5,7 @@ import {
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Thumb.module.scss';
 import useMemoRef from '@/shared/hooks/useMemoRef';
-import { Position } from '@/shared/lib/kit/position/position';
+import { Vector } from '@/shared/lib/kit/position/vector';
 import { useDraggable } from '@/shared/hooks/useDraggable/useDraggable';
 import intoBoundaries from '@/shared/hooks/useDraggable/handlers/intoBoundaries';
 import inBoundaries from '@/shared/hooks/useDraggable/handlers/inBoundaries';
@@ -57,8 +57,8 @@ const Thumb = (props: ThumbProps, ref: ForwardedRef<HTMLDivElement | null>) => {
     }, [sliderRef.current]);
     const stepSlider = useMemo<number>(() => factor * step, [factor, step]);
 
-    const start = useMemo<Position>(() => (
-        new Position([0, 0].map((o, i) => (
+    const start = useMemo<Vector>(() => (
+        new Vector([0, 0].map((o, i) => (
             i === ['X', 'Y'].findIndex((l) => l === direction)
                 ? factor * (postValue) : 0
         )))

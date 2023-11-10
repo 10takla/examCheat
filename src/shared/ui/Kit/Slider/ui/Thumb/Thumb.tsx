@@ -14,7 +14,7 @@ import cls from './Thumb.module.scss';
 import { FlexRef } from '@/shared/ui/Stack/Flex/Flex';
 import useUpdateState from '@/shared/hooks/useUpdateState';
 import { MoveMeasures } from '@/shared/hooks/useCursorMove';
-import { Position } from '@/shared/lib/kit/position/position';
+import { Vector } from '@/shared/lib/kit/position/vector';
 import useResize from '@/shared/hooks/useResize';
 import { DragIntersectProps, useDraggable, useDragIntersect } from '@/shared/hooks/useDraggable/useDraggable';
 

@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { Position, PositionCursor } from '@/shared/lib/kit/position/position';
+import { Vector, PositionCursor } from '@/shared/lib/kit/position/vector';
 
 export type MoveMeasures = Record<'totalOffset' | 'currOffset', PositionCursor>
 
@@ -13,14 +13,14 @@ export interface CursorMoveProps {
 export default ({
     onEnd, onMove, onStart, step = 1,
 }: CursorMoveProps, deps = []) => {
-    const prevPosRef = useMemo(() => new Position([0, 0]), []);
-    const [total, setTotal] = useState<Position>(new Position([0, 0]));
-    const [curr, setCurr] = useState<Position>(new Position([0, 0]));
-    const totalTranslate = useMemo(() => new Position([0, 0]), []);
-    const stack = useMemo(() => new Position([0, 0]), []);
+    const prevPosRef = useMemo(() => new Vector([0, 0]), []);
+    const [total, setTotal] = useState<Vector>(new Vector([0, 0]));
+    const [curr, setCurr] = useState<Vector>(new Vector([0, 0]));
+    const totalTranslate = useMemo(() => new Vector([0, 0]), []);
+    const stack = useMemo(() => new Vector([0, 0]), []);
     const onActMove = useCallback((ev: MouseEvent) => {
         const currTranslate = new PositionCursor(ev).sub(prevPosRef);
-        prevPosRef.set(new Position(ev));
+        prevPosRef.set(new Vector(ev));
         stack.add(currTranslate);
         const newStack = stack.position;
         const stepsNs = [0, 0];
@@ -38,9 +38,11 @@ export default ({
         stack.set(newStack);
         if (stepsNs.some((o) => o !== 0)) {
             totalTranslate.add(stepsNs);
+            setTotal(new Vector(totalTranslate));
+            setCurr(new Vector(stepsNs));
             onMove?.({
-                totalOffset: new Position(totalTranslate),
-                currOffset: new Position(stepsNs),
+                totalOffset: new Vector(totalTranslate),
+                currOffset: new Vector(stepsNs),
             });
         }
     }, [onMove, prevPosRef, stack, step, totalTranslate]);
@@ -65,6 +67,9 @@ export default ({
     }, [curr, onActMove, onEndMove, onStart, prevPosRef, total]);
 
     return {
-        onStartMove, onEndMove,
+        onStartMove,
+        onEndMove,
+        currOffset: curr,
+        totalOffset: total,
     };
 };

@@ -1,7 +1,5 @@
 import {
-    ForwardedRef,
-    forwardRef,
-    HTMLProps, memo, Suspense, useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState,
+    ForwardedRef, forwardRef, memo, useImperativeHandle, useRef,
 } from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Slider.module.scss';
@@ -9,8 +7,6 @@ import Thumb, { ThumbProps } from '@/shared/ui/Kit/Slider/ui/Thumb/Thumb';
 import { HStack } from '@/shared/ui/Stack';
 import useUpdateState from '@/shared/hooks/useUpdateState';
 import { FlexRef } from '@/shared/ui/Stack/Flex/Flex';
-import Draggable from '@/shared/ui/Kit/Draggable/ui/Draggable/Draggable';
-import InBoundaries from '@/shared/ui/Kit/Draggable/ui/InBoundaries/InBoundaries';
 
 export interface RangeInputProps {
     className?: string

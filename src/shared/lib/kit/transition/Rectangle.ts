@@ -1,4 +1,4 @@
-import { Position } from '@/shared/lib/kit/position/position';
+import { Vector } from '@/shared/lib/kit/position/vector';
 import { Direction } from '@/shared/lib/kit/direction/direction';
 
 export default class Rectangle {
@@ -10,31 +10,36 @@ export default class Rectangle {
 
     public bottom: number;
 
-    constructor(element: HTMLElement | Rectangle) {
-        if (element instanceof HTMLElement) {
-            const objectRect = element.getBoundingClientRect();
+    constructor(arg: HTMLElement | Rectangle | number[]) {
+        if (arg instanceof HTMLElement) {
+            const objectRect = arg.getBoundingClientRect();
             this.left = objectRect.left;
             this.right = objectRect.right;
             this.top = objectRect.top;
             this.bottom = objectRect.bottom;
-        } else if (element instanceof Rectangle) {
-            this.left = element.left;
-            this.right = element.right;
-            this.top = element.top;
-            this.bottom = element.bottom;
+        } else if (arg instanceof Rectangle) {
+            this.left = arg.left;
+            this.right = arg.right;
+            this.top = arg.top;
+            this.bottom = arg.bottom;
+        } else if (Array.isArray(arg) && arg.length === 4) {
+            ['left', 'right', 'top', 'bottom'].forEach((key, i) => {
+                // @ts-ignore
+                this[key] = arg[i];
+            });
         } else {
             throw Error('not valid value of rectangle');
         }
     }
 
-    addTransition(vector: Position) {
+    addTransition(vector: Vector) {
         this.left += vector.position[0];
         this.right += vector.position[0];
         this.top += vector.position[1];
         this.bottom += vector.position[1];
     }
 
-    setTransition(vector: Position) {
+    setTransition(vector: Vector) {
         const width = this.right - this.left;
         const height = this.top - this.bottom;
         this.left = vector.position[0];
@@ -60,7 +65,8 @@ export default class Rectangle {
                 )).join(' && ');
                 if (eval(c)) {
                     all.push(new Direction(side));
-                } return all;
+                }
+                return all;
             }, [] as Direction[]);
             return c1;
         });

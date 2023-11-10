@@ -1,13 +1,12 @@
 // eslint-disable-next-line max-classes-per-file
 import Side from '@/shared/lib/kit/direction/side';
-import { Direction } from '@/shared/lib/kit/direction/direction';
 
 export type Point2D = [number, number] | number[];
 type ClientCoords = Record<'clientX' | 'clientY', number>;
 type Coords = Record<'x' | 'y', number>;
 type PositionProps = Point2D | ClientCoords
 
-export class Position {
+export class Vector {
     public position: Point2D = [0, 0];
 
     get x() {
@@ -23,11 +22,11 @@ export class Position {
     }
 
     get new() {
-        return new Position(this.position);
+        return new Vector(this.position);
     }
 
-    constructor(data: PositionProps | Position) {
-        if (data instanceof Position) {
+    constructor(data: PositionProps | Vector) {
+        if (data instanceof Vector) {
             this.position = data.position;
         } else if (Array.isArray(data) && data.length === 2) {
             this.position = data;
@@ -38,11 +37,11 @@ export class Position {
         }
     }
 
-    private getTwo(two: Position | PositionProps) {
-        if (two instanceof Position) {
+    private getTwo(two: Vector | PositionProps) {
+        if (two instanceof Vector) {
             return two.position;
         }
-        return new Position(two).position;
+        return new Vector(two).position;
     }
 
     // setSide(side: Direction['side'], value: number) {
@@ -51,21 +50,21 @@ export class Position {
     //     this.position[dirI] = value;
     // }
 
-    set(newPos: Position | PositionProps | [Side]): Position {
+    set(newPos: Vector | PositionProps | [Side]): Vector {
         const t = this.getTwo(newPos);
         if (t === null) {
             throw new Error('Invalid input data');
         }
-        if (newPos instanceof Position) {
+        if (newPos instanceof Vector) {
             this.position = newPos.position;
         } else {
-            this.position = new Position(newPos).position;
+            this.position = new Vector(newPos).position;
         }
         this.position = t;
         return this;
     }
 
-    add(two: Position | PositionProps): Position {
+    add(two: Vector | PositionProps): Vector {
         const one = this.position;
         const t = this.getTwo(two);
         if (one === null || t === null) {
@@ -80,7 +79,7 @@ export class Position {
         return this;
     }
 
-    multiply(two: Position | PositionProps): Position {
+    multiply(two: Vector | PositionProps): Vector {
         const one = this.position;
         const t = this.getTwo(two);
         if (one === null || t === null) {
@@ -93,7 +92,7 @@ export class Position {
         return this;
     }
 
-    sub(two: Position | PositionProps): Position {
+    sub(two: Vector | PositionProps): Vector {
         const one = this.position;
         const t = this.getTwo(two);
         if (one === null || t === null) {
@@ -107,7 +106,7 @@ export class Position {
     }
 }
 
-export class PositionCursor extends Position {
+export class PositionCursor extends Vector {
     constructor(event: MouseEvent) {
         super({ clientX: event.clientX, clientY: event.clientY });
     }

@@ -4,6 +4,8 @@ import cls from './DragObject.module.scss';
 import { useDraggable } from '@/shared/hooks/useDraggable/useDraggable';
 import { HStack } from '@/shared/ui/Stack';
 import { Direction } from '@/shared/lib/kit/direction/direction';
+import Draggable from '@/shared/ui/Kit/Draggable/ui/Draggable/Draggable';
+import useCursorMove from '@/shared/hooks/useCursorMove';
 
 export interface DragObjectProps {
     className?: string
@@ -18,11 +20,13 @@ export const DragObject = memo((props: DragObjectProps) => {
     const dragRef = useRef<HTMLDivElement | null>(null);
     const divRef = useRef<HTMLDivElement[]>([]);
 
-    const { onStartMove } = useDraggable({
-        dragRef,
-        intoRef: hStackRef,
-        inRef: divRef,
-    });
+    // const { onStartMove } = useDraggable({
+    //     dragRef,
+    //     intoRef: hStackRef,
+    //     inRef: divRef,
+    // });
+
+    const { onStartMove, currOffset } = useCursorMove({ step: 20 });
 
     return (
         <HStack
@@ -37,16 +41,13 @@ export const DragObject = memo((props: DragObjectProps) => {
                     }
                 }}
             />
-            <div
-                className={cls.active}
-                style={{
-                    transform: 'translate(400px, 500px)',
-                }}
-                onMouseDown={(e: any) => {
-                    onStartMove(e);
-                }}
-                ref={dragRef}
-            />
+            <Draggable transition={currOffset}>
+                <div
+                    onMouseDown={(e: any) => {
+                        onStartMove(e);
+                    }}
+                />
+            </Draggable>
         </HStack>
     );
 });
