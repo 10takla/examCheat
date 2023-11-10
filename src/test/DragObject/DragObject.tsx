@@ -17,7 +17,7 @@ export const DragObject = memo((props: DragObjectProps) => {
         ...otherProps
     } = props;
     const hStackRef = useRef<HTMLDivElement | null>(null);
-    const dragRef = useRef<HTMLDivElement | null>(null);
+    const staticRef = useRef<HTMLDivElement | null>(null);
     const divRef = useRef<HTMLDivElement[]>([]);
 
     // const { onStartMove } = useDraggable({
@@ -35,13 +35,12 @@ export const DragObject = memo((props: DragObjectProps) => {
         >
             <div
                 className={cls.static}
-                ref={(r) => {
-                    if (r) {
-                        divRef.current[0] = r;
-                    }
-                }}
+                ref={staticRef}
             />
-            <Draggable transition={currOffset}>
+            <Draggable
+                transition={currOffset}
+                intersectRef={staticRef}
+            >
                 <div
                     onMouseDown={(e: any) => {
                         onStartMove(e);
